@@ -1,0 +1,75 @@
+'use client'
+import React, { ChangeEvent, useState } from 'react'
+import { FaEye } from 'react-icons/fa';
+
+interface props {
+	labelId         : string;
+	type            : string;
+	onChange        : (e:ChangeEvent<HTMLInputElement>) => void;
+	value           : string | number | null;
+	label           : string
+	required?       : boolean;
+    children?       : React.ReactNode | undefined
+    errors?         : any[]
+    defaultValue?   : string|number
+}
+
+const FloatingInput = ({
+    labelId,
+	type,
+	onChange,
+	value,
+	label,
+	required = false,
+    children,
+    defaultValue,
+    errors
+}: props) => {
+    const [inputType, setType] = useState(type)
+  return (
+    <div>
+        <label
+            htmlFor={labelId}
+            className={"relative block rounded-2xl border "+ (errors?.length?"border-red-500":"border-gray-300 focus:border-primary ")}
+        >
+            <input
+                type={inputType}
+                name={labelId}
+                id={labelId}
+                onChange={onChange}
+                value={value?.toString()}
+                defaultValue={defaultValue}
+                required={required}
+                placeholder=''
+                className="[&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none rounded-2xl py-2 px-3 peer w-full border-none bg-gray-100 placeholder-transparent border focus:outline-none focus:ring-0"
+            />
+                <span
+                    className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-gray-100 py-0 px-1  text-md transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                >
+                    {label}
+                </span>
+                {
+                    type === 'password'?
+                        <button 
+                            type='button'
+                            onClick={()=>setType(inputType === 'text'?'password':'text')}
+                            className='absolute end-1 rounded-full top-1 p-2 hover:bg-gray-100'
+                        >
+                            <FaEye />
+                        </button>
+                    :null
+                }
+                {children}
+        </label>
+        <div className="absolute">
+            {
+                errors?.map(error=>
+                    <span key={error} className='text-red-500 block'>{error}</span>
+                )
+            }
+        </div>
+    </div>
+  )
+}
+
+export default FloatingInput

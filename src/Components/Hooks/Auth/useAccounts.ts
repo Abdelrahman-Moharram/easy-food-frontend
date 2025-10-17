@@ -9,6 +9,7 @@ const emptyUser = {
     full_name: '',
     username: '',
     role: '',
+    email: '',
     user_type: '',
     password:''
 }
@@ -65,6 +66,7 @@ export const useUsersForm = ({userId, toggler}:{userId?:string, toggler?:boolean
             formData.append('id', user.id)
         formData.append('username', user.username)
         formData.append('full_name', user.full_name)
+        formData.append('email', user.email)
         formData.append('role', user.role)
         formData.append('user_type', user.user_type)
         if(!userId)

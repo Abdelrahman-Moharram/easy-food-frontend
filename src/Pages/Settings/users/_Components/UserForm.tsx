@@ -3,7 +3,7 @@ import React from 'react'
 import { toast } from 'react-toastify'
 import { useAddUserMutation, useEditUserMutation } from '../../../../redux/api/accountsApi'
 import { useUsersForm } from '../../../../Components/Hooks/Auth/useAccounts'
-import { fullNameRegex, usernameRegex } from '../../../../Components/Hooks/Common/validationsRegexRepo'
+import { emailRegex, fullNameRegex, usernameRegex } from '../../../../Components/Hooks/Common/validationsRegexRepo'
 import { Input, SelectInput } from '../../../../Components/Forms'
 import OverLayFuncArea from '../../../../Components/Modals/OverLayFuncArea'
 import Button from '../../../../Components/Common/Button'
@@ -80,6 +80,17 @@ const UserForm = ({action, open, userId}:{action:()=>void, open:boolean, userId?
                     labelId='username'
                     type='text'
                     errors={formErrors?.username}
+                    required={true}
+                />
+            </div>
+            <div className="mb-2">
+                <Input
+                    onChange={(e) => onChange(e, { regex: emailRegex})}
+                    value={user.email}
+                    label={t("email")}
+                    labelId='email'
+                    type='text'
+                    errors={formErrors?.email}
                     required={true}
                 />
             </div>

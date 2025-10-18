@@ -42,13 +42,13 @@ const NavBar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/services" onClick={closeMenu}>
-              Services
+            <NavLink to="/settings/Users" onClick={closeMenu}>
+              Users
             </NavLink>
           </li>
           <li>
-            <NavLink to="/contact" onClick={closeMenu}>
-              Contact
+            <NavLink to="/settings/Roles" onClick={closeMenu}>
+              Roles
             </NavLink>
           </li>
           

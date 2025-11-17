@@ -14,7 +14,7 @@ const Logout = () => {
             .then(()=>{
                 dispatch(setLogout());
                 nav("/auth/login")
-            }).catch((err)=>{
+            }).catch(()=>{
                 nav("/auth/login")
             })
     }, [dispatch])

@@ -1,29 +1,43 @@
-import {  useNavigate } from 'react-router-dom';
 import { LoginForm } from '../../Components/Forms'
 import { useTranslation } from "react-i18next";
-
 const Login = () => {
-    const navigate = useNavigate();
-
+  console.log("Login");
+  
   const {t, i18n} = useTranslation();
+  
   return (
+    <main className={``}>
+      <div className='p-7 ml-5'></div>
+      <div className="flex justify-between items-center h-screen z-10 relative">
+        {
+          i18n.language === 'en'?
+            <div className="w-full"></div>
+          :null
+        }
 
-    <main className="bg-login-image flex items-center justify-center h-screen">
-  <div className="bg-black bg-opacity-50 p-10 rounded-xl shadow-xl w-[90%] max-w-md">
-    <LoginForm />
-        <p className="text-white mt-6">
-                   {t("Don't have an account?")}{' '}</p>
-          <button
-            onClick={() => navigate("/auth/signup", { replace: true })}
-            className="text-blue-400 hover:text-blue-500 font-semibold underline"
-          >
-            {t("Register here")}
-          </button>
+        {/* form container */}
+        <div className="w-[50%] lg:pr-16 bg-login-container">
+          <div className=" bg-white lg:px-8 default-shadow-xl py-16 rounded-xl ">
+            <div className='mb-4'>
+              <h2 className='text-[40px] font-[400]'>{t("Hello")}</h2>
+              <h2 className='text-[40px] font-[600] text-primary'> {t("Login")}</h2>
+            </div>
+            
+            <LoginForm />
+            
 
-    
-  </div>
-</main>
+            <div className="flex justify-center mt-16"></div>
+          </div>
+        </div>
 
+        {
+          i18n.language === 'ar'?
+            <div className="w-full"></div>
+          :null
+        }
+
+      </div>
+    </main>
   )
 }
 

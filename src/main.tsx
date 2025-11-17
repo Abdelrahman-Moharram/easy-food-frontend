@@ -16,7 +16,7 @@ import UsersSettings from './Pages/Settings/users/index.tsx'
 import RolesSettings from './Pages/Settings/roles/index.tsx'
 import { IsAllowedPermissionOrRedirect } from './Pages/Guards/IsAllowedPermission.tsx'
 import SignUp from './Pages/Auth/SignUp.tsx';
-import Cool from './Pages/Auth/cool.tsx';
+import Brands from './Pages/Brands';
 
 const router = createBrowserRouter ([
   {
@@ -45,7 +45,7 @@ const router = createBrowserRouter ([
             path:'users',
             element:(
             <IsAllowedPermissionOrRedirect permission='permissions.users.view'>
-            <UsersSettings />
+              <UsersSettings />
             </IsAllowedPermissionOrRedirect>
             )
           },
@@ -53,67 +53,50 @@ const router = createBrowserRouter ([
             path:'roles',
             element:
             (
-            <IsAllowedPermissionOrRedirect permission='permissions.roles.view'>
-            <RolesSettings />
-            </IsAllowedPermissionOrRedirect>
-                        )
-
-          },
-          
-         
-          
-        ]
-      },
-
-      {
-        path:'/Cool',
-        children:[
-          
-          {
-            path:'page',
-            element:(
-            <Cool/>
+              <IsAllowedPermissionOrRedirect permission='permissions.roles.view'>
+                <RolesSettings />
+              </IsAllowedPermissionOrRedirect>
             )
+
           },
-         
           
          
           
         ]
       },
-
-
-
-
       {
-        path:'/auth',
-        // element:<div dir='rtl'><Outlet /></div>,
-        children:[
-          {
-            path:"logout",
-            element:
-            <AuthenticatedOrRedirect>
-              <Logout />
-            </AuthenticatedOrRedirect>
-          },
-          {
-            path:"login",
-            element:
-            <NotAuthenticatedOrRedirect>
-              <Login />
-            </NotAuthenticatedOrRedirect>
-          },
-          {
-            path:"signup",
-            element:
-            <NotAuthenticatedOrRedirect>
-              <SignUp />
-            </NotAuthenticatedOrRedirect>
-          }
-        ]
+        path:'/brands',
+        element:<Brands />,
       },
     ],
 
+  },
+  {
+    path:'/auth',
+    // element:<div dir='rtl'><Outlet /></div>,
+    children:[
+      {
+        path:"logout",
+        element:
+        <AuthenticatedOrRedirect>
+          <Logout />
+        </AuthenticatedOrRedirect>
+      },
+      {
+        path:"login",
+        element:
+        <NotAuthenticatedOrRedirect>
+          <Login />
+        </NotAuthenticatedOrRedirect>
+      },
+      {
+        path:"signup",
+        element:
+        <NotAuthenticatedOrRedirect>
+          <SignUp />
+        </NotAuthenticatedOrRedirect>
+      }
+    ]
   },
       
 ])

@@ -1,9 +1,10 @@
 import React from 'react'
 import ImageSkeleton from './ImageSkeleton';
-import { IoMdArrowDropright } from 'react-icons/io';
+import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { capitalizeFirstLetter } from '../utils/helper';
 import { ImHome3 } from 'react-icons/im';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface item{
   href: string;
@@ -12,10 +13,19 @@ interface item{
   current?: boolean
 }
 const Breadcrumb = ({items}:{items?:item[]|undefined}) => {
-const { pathname } = useLocation();
-const pathnames = pathname.split('/')
+const { pathname }  = useLocation();
+const pathnames     = pathname.split('/')
+const { i18n }      = useTranslation();
+
+
+const ArrowIcon = () => (
+  i18n.language === "ar"?
+    <IoMdArrowDropleft />
+  :
+    <IoMdArrowDropright />
+)
+
 return (
-    
 <nav aria-label="Breadcrumb">
   <ol className="flex items-center gap-1 text-sm text-color">
     {
@@ -25,7 +35,7 @@ return (
                     {
                         i !== 0?
                           <div className="mx-3">
-                            <IoMdArrowDropright />
+                            <ArrowIcon />
                           </div>
 
                         :null
@@ -50,9 +60,8 @@ return (
               {
                   index !== 0?
                     <div className="mx-3">
-                      <IoMdArrowDropright />
+                      <ArrowIcon />
                     </div>
-
                   :null
               }
               {

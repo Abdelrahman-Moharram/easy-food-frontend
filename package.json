@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host --port 3080",
+    "dev": "vite --host --port 3008",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview --host --port 3080"
+    "preview": "vite preview --host --port 3008"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",

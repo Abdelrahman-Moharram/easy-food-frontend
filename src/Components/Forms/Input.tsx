@@ -39,7 +39,7 @@ const Input = ({
 		<div className='p-0'>
 			<label 
 				htmlFor={labelId}
-            	className={"block text-md font-bold text-white   "+ (errors?.length?"border-red-500":" border-none ")}
+            	className={"block text-md font-medium  text-gray-700 "+ (errors?.length?"border-red-500":" border-none ")}
 			> 
 				{label} 
 			</label>

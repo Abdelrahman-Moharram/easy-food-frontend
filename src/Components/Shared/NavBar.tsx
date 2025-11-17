@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'; // Use NavLink!
 
 // You would import a CSS file for styling (e.g., import './Navbar.css';)

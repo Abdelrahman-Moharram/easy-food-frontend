@@ -3,7 +3,11 @@ import { useAppSelector } from '../../redux/hooks'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export const IsAllowedPermissionOrNull = ({permission, children}: {permission:string | string[]; children: React.ReactNode; }) => {
+    
     const { permissions } = useAppSelector(state => state.auth.user);
+    
+    if (!permission)
+        return children
 
     const hasPermission = Array.isArray(permission)
         ? permission.some(p => permissions.includes(p))
@@ -29,8 +33,9 @@ export const IsAllowedPermissionOrRedirect = ({permission, children}:{permission
 }
 
 export const IsAllowedPermissionOrFalse = (permission:string) =>{
-    if(permission){
-        const {permissions} = useAppSelector(state=>state.auth.user)
+    const {permissions} = useAppSelector(state=>state.auth.user)
+
+    if(permission){    
         return permissions.includes(permission)
     }
     return true

@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent } from 'react';
 
 import ErrorAlert from '../alerts/ErrorAlert';
 import Input from './Input';
-import { Spinner } from '../Common';
+import Button from '../Common/Button';
 
 interface Config {
 	labelText: string;
@@ -38,7 +38,7 @@ export default function Form({
 	return (
 		<form className='space-y-6' onSubmit={onSubmit}>
 			{
-				errors?.hasOwnProperty('non_field_errors')?
+				errors?.non_field_errors?
 					<ul className='list-disc'>
 						{
 							errors['non_field_errors']?.map((i:string)=>(
@@ -65,19 +65,17 @@ export default function Form({
 					onChange={(e:ChangeEvent<HTMLInputElement>)=>onChange(e)}
 					value={input.value}
 					required={input.required}
-					errors={errors?.hasOwnProperty(input.labelId) ? errors[input.labelId]: []}
-					
+					errors={errors?.labelId || []}	
 				/>
 			))}
 
 			<div className='pt-8'>
-				<button
-					type='submit'
-					className='flex w-full justify-center rounded-xl bg-lime-500 px-3 py-3 text-sm text-negative-color leading-6 font-[700] shadow-sm hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
-					disabled={isLoading}
-				>
-					{isLoading ? <span className='flex gap-1 items-center'>{btnText} <Spinner sm /> </span> : `${btnText}`}
-				</button>
+				<Button 
+					title={btnText}
+					isLoading={isLoading}
+					variant='primary'
+					submit
+				/>
 			</div>
 		</form>
 	);

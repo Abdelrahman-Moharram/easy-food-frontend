@@ -1,19 +1,18 @@
 import React, { Suspense, useEffect } from 'react'
 
 import { useRetrieveUserQuery } from '../redux/features/authApiSlice'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { Outlet } from 'react-router-dom'
+import { useAppDispatch } from '../redux/hooks'
 import { setAuth } from '../redux/features/authSlice'
 
-import { Setup } from '../Components/utils'
-import Header from '../Components/Shared/Header'
+import SideNav from '../Components/Shared/SideNav'
+import { Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import Footer from '../Components/Common/Footer'
+import Breadcrumb from '../Components/Common/Breadcrumb'
 
 
 const Layout = ({ children }:{children?:React.ReactNode}) => {
-    const { i18n } = useTranslation();
     const { data } = useRetrieveUserQuery()
+    const { i18n } = useTranslation();
     const dispatch = useAppDispatch()
     
     useEffect(() => {
@@ -21,35 +20,21 @@ const Layout = ({ children }:{children?:React.ReactNode}) => {
             dispatch(setAuth(data))
         }
     }, [data, dispatch])
-    const {isAuthenticated} = useAppSelector(state=>state.auth)
-    
+
     return (
-        
-        <div >
-            
-            {
-                !isAuthenticated? <>{children || <Outlet />}</>
-                :
-                <div>
-                    <Setup />
-                    <div className="h-screen flex flex-col">
-                        <Header />
-                        <div className="flex flex-1">
-                            
-                            <Suspense>
-                                <div className={`w-full bg-background overflow-hidden`}>
-                                    {/* show message appears here */}
-                                    {children || <Outlet />}
-                                </div>
-                            </Suspense>
-                        </div>
-                    <Footer/>
+        <main dir={i18n.language == "en" ? "ltr" : "rtl"} className=' light' >
+            <div className='flex gap-8 bg-background'>
+                <SideNav />
+                <div className="px-0 w-full min-h-[calc(100vh-78px)] mx-auto overflow-hidden">
+                    <div className=" p-10 rounded-tr-2xl mx-8">
+                        <Breadcrumb />
+                        <Suspense>
+                            {children || <Outlet />}
+                        </Suspense>
                     </div>
                 </div>
-            }
-        </div>
-        
-            
+            </div>    
+        </main>
     )
 }
 

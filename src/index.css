@@ -13,9 +13,8 @@
 
 
 body{
-  --primary:#00A69C;
+  --primary:#003459;
   font-family: 'Bahij_TheSansArabic';
-  /* background-image: url('/default-bg.png'); */
   background-size: cover;
   background-attachment: fixed;
   
@@ -23,7 +22,7 @@ body{
 
 .light {
   
-  --background:#FFFFFF;
+  --background: 250, 252, 255, 1;
 
   --container: 255, 255, 255;
 
@@ -34,6 +33,7 @@ body{
   --color: 0, 0, 0;
   --side-nav: 49, 49, 49, 1;
   --negative-color:255, 255, 255;
+  background: rgba(var(--background));
 
 }
 .tw-blur, .blur, .blur-sm, .blur-md, .blur-lg {
@@ -66,19 +66,22 @@ body{
 }
 
 .default-shadow-xl{
-  box-shadow: 0px 0px 10px rgba(var(--color));
+  box-shadow: 0px 0px 10px #000;
 }
 
 .default-shadow-lg{
-  box-shadow: 0px 0px 7px rgba(var(--color));
+  box-shadow: 0px 0px 7px #000;
 }
 
 .default-shadow-md{
-  box-shadow: 0px 0px 5px rgba(var(--color));
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-width: 1px;
 }
 
 .default-shadow-sm{
-  box-shadow: 0px 0px 3px rgba(var(--color));
+  box-shadow: 0px 0px 3px #000;
 }
 
 
@@ -100,7 +103,7 @@ body{
 }
 
 .fade-in {
-animation: fadein 0.35s ease forwards;
+  animation: fadein 0.35s ease forwards;
 }
 .preview-image:hover div{
   display: flex !important;
@@ -217,116 +220,22 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-
 .bg-login-container{
-  animation: leftToRight .5s linear;
-  background-image: url('/Login-Card.png');
+  animation: scale .3s linear;
   background-size: cover;
   background-attachment: fixed;
 }
-/* Navbar.css - A Sleek, Modern, Floating Style */
-
-/* --- Base & Floating Effect --- */
-.navbar {
-  /* Position fixed or sticky for floating effect */
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 2rem;
-  
-  /* Modern Look: Transparent/White with Blur */
-  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
-  backdrop-filter: blur(8px); /* The "Glass" effect */
-  -webkit-backdrop-filter: blur(8px); /* Safari support */
-  
-  /* Attractive Shadow: Subtle and low, making it "float" */
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.08); 
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Thin subtle line */
-}
-
-/* --- Logo Styling --- */
-.navbar-logo a {
-  font-size: 1.6rem;
-  font-weight: 700; /* Bolder font */
-  text-decoration: none;
-  color: #3f51b5; /* Primary accent color (Deep Blue) */
-  transition: color 0.3s ease-in-out;
-}
-
-.navbar-logo a:hover {
-  color: #ff4081; /* Secondary accent color (Pink/Red) */
-}
-
-/* --- Links Container --- */
-.navbar-links ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.navbar-links li a {
-  font-weight: 500;
-  text-decoration: none;
-  color: #444; /* Darker text for readability */
-  padding: 0.5rem 1rem;
-  margin: 0 0.5rem;
-  border-radius: 6px;
-  transition: all 0.3s ease-in-out;
-  position: relative; /* Needed for the active/hover underline effect */
-}
-
-/* --- Hover & Active States (The key to attraction) --- */
-
-/* Hover state: Subtle background change */
-.navbar-links li a:hover {
-  background-color: rgba(63, 81, 181, 0.1); /* Light transparent blue */
-  color: #3f51b5;
-}
-
-/* NavLink's special active class styling */
-.navbar-links li a.active {
-  color: #ff4081; /* Highlight the text color */
-  font-weight: 600;
-  
-  /* Attraction: A beautiful underline that pops */
-  border-bottom: 2px solid #ff4081; 
-  padding-bottom: 3px; /* Ensure space for the line */
-  border-radius: 0;
-}
-
-/* --- Mobile Toggle Button (Updated color for contrast) --- */
-.navbar-toggle {
-  display: none; 
-  /* (Keep the rest of the mobile styles the same as the previous example) */
-}
-
-/* --- Media Query for Responsiveness (Mobile View) --- */
-@media (max-width: 768px) {
-  /* Adjustments for Mobile Menu to match the style */
-  .navbar-links {
-    /* When active, use a solid color for better mobile contrast */
-    background-color: #fff;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+@keyframes scale {
+  from{
+      transform: scale(.5);
   }
-  
-  .navbar-toggle {
-      display: flex;
+  to{
+      transform: scale(1);
   }
-  
-  .navbar-toggle .bar {
-      background-color: #3f51b5; /* Dark blue bar */
-  }
-  /* The rest of the media queries remain similar */
 }
 
 .bg-login-image {
-  background-image: url('/login-background.avif');
-  background-color: rgba(250, 252, 255, 1);
+  background: rgba(var(--background));
   background-size: cover;
   background-position: center;
   position: fixed;
@@ -334,16 +243,7 @@ body::-webkit-scrollbar-thumb {
   top: 0;
   bottom: 0;
   right: 0;
-  height: 100vh; /* غطّي ارتفاع الشاشة بالكامل */
-  width: 100vw;  /* غطّي العرض بالكامل */
-  z-index: -1;   /* خليها خلف المحتوى */
-}
-
-@keyframes leftToRight {
-  from{
-      margin-right: -900px;
-    }
-    to{
-      margin-right: 100px;
-  }
+  height: 100vh; 
+  width: 100vw;  
+  z-index: -1;   
 }

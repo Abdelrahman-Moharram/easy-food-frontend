@@ -35,12 +35,13 @@ const baseQueryWithReauth: BaseQueryFn<
           api,
           extraOptions
         );
-
+        
         if (refreshResult.data) {
           // ✅ أعد تنفيذ الطلب الأصلي بعد التجديد
           result = await baseQuery(args, api, extraOptions);
         } else {
           api.dispatch(setLogout());
+          
         }
       } finally {
         release();
@@ -64,8 +65,7 @@ export const apiSlice = createApi({
     'users',
     'roles-permissions',
     'roles',
-    'notification-center',
-    'notification-templates',
+    'brands',
   ],
   endpoints: () => ({}),
 });

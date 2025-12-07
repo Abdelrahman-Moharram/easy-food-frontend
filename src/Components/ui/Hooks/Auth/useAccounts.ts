@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react"
 import { DefaultInputValidate } from "../Common/useValidations";
-import { useGetAddUserDropDownsQuery, useUserDetailsMutation } from "../../../redux/api/accountsApi";
+import { useGetAddUserDropDownsQuery, useUserDetailsMutation } from "../../../../redux/api/accountsApi";
 import { SingleValidationRules } from "../../Types/Others";
 import { UserType } from "../../Types/Accounts";
 

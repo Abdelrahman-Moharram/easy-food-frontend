@@ -13,12 +13,21 @@ const requestsApiSlice = apiSlice.injectEndpoints({
         
         // ------------------------------------------------ //
 
+        sendRequestsList: builder.mutation({
+            query:({form}:{form:FormData})=>({
+                url:base_url+'send/',
+                method:'post',
+                body:form
+            }),
+        }),
+
     }) 
 })
 
 
 export const {
     useGetRequestsListQuery,
+    useSendRequestsListMutation
 
 } = requestsApiSlice
 

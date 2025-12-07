@@ -4,7 +4,7 @@ import { useRetrieveUserQuery } from '../redux/features/authApiSlice'
 import { useAppDispatch } from '../redux/hooks'
 import { setAuth } from '../redux/features/authSlice'
 
-import SideNav from '../Components/Shared/SideNav'
+import SideNav from '../Components/ui/Shared/SideNav'
 import { Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 

@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { toast } from 'react-toastify';
-import { useRegisterMutation } from '../../../redux/features/authApiSlice';
+import { useRegisterMutation } from '../../../../redux/features/authApiSlice';
 import { useNavigate } from 'react-router-dom';
 
 export default function useRegister() {

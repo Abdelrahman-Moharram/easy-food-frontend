@@ -1,4 +1,4 @@
-import Page from "../../Components/Shared/Page"
+import Page from "../../Components/ui/Shared/Page"
 
 const Home = () => {
   return (

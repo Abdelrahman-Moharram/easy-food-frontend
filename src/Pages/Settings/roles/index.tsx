@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { FaPlusCircle } from 'react-icons/fa'
 
-import { baseType } from '../../../Components/Types/Others'
+import { baseType } from '../../../Components/ui/Types/Others'
 import { useSearchParams } from 'react-router-dom'
 import { to_int_or_default } from '../../../Components/utils/helper'
 import { useGetRolesListQuery } from '../../../redux/api/rolesApi'
@@ -13,7 +13,7 @@ import { CardsListWithPagination } from '../_Components'
 import DeleteRoleModal from './_Components/DeleteRoleModal'
 import { IsAllowedPermissionOrNull } from '../../Guards/IsAllowedPermission'
 import { useTranslation } from "react-i18next";
-import Button from '../../../Components/Common/Button'
+import Button from '../../../Components/ui/Common/Button'
 
 
 interface baseObjType{

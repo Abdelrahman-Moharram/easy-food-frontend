@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { DefaultInputValidate } from "../Common/useValidations";
 import { baseType, SingleValidationRules } from "../../Types/Others";
-import { useRoleDetailsMutation } from "../../../redux/api/rolesApi";
+import { useRoleDetailsMutation } from "../../../../redux/api/rolesApi";
 
 const baseRole = {
     id:'',

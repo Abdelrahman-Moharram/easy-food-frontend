@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import SmallCard from '../Cards/SmallCard'
 import { ImageSkeleton } from '../Common';
-import { IsAllowedPermissionOrFalse } from '../../Pages/Guards/IsAllowedPermission';
+import { IsAllowedPermissionOrFalse } from '../../../Pages/Guards/IsAllowedPermission';
 
 interface itemType{
   label:string

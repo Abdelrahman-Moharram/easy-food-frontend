@@ -1,7 +1,7 @@
 import {  useNavigate } from 'react-router-dom';
 import React from 'react'
 import { useTranslation } from "react-i18next";
-import { RegisterForm } from '../../Components/Forms';
+import { RegisterForm } from '../../Components/ui/Forms';
 
 const SignUp = () => {
         const navigate = useNavigate();

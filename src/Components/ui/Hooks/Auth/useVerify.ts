@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import Cookies from "js-cookie"
-import { useAppDispatch } from '../../../redux/hooks';
-import { useVerifyMutation } from '../../../redux/features/authApiSlice';
-import { finishInitialLoad, setLogout } from '../../../redux/features/authSlice';
+import { useAppDispatch } from '../../../../redux/hooks';
+import { useVerifyMutation } from '../../../../redux/features/authApiSlice';
+import { finishInitialLoad, setLogout } from '../../../../redux/features/authSlice';
 
 export default function useVerify() {
 	const dispatch = useAppDispatch();

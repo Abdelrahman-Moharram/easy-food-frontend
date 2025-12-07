@@ -1,5 +1,5 @@
 import React from 'react'
-import OverLay from '../../../../Components/Modals/OverLay'
+import OverLay from '../../../../Components/ui/Modals/OverLay'
 import RolePermissions from './Permissions/RolePermissions'
 import { useTranslation } from 'react-i18next'
 interface Props{

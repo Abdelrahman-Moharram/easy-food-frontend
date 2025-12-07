@@ -2,11 +2,11 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import { SelectInput } from '../../../../Components/Forms'
-import Button from '../../../../Components/Common/Button'
-import { baseType } from '../../../../Components/Types/Others'
+import { SelectInput } from '../../../../Components/ui/Forms'
+import Button from '../../../../Components/ui/Common/Button'
+import { baseType } from '../../../../Components/ui/Types/Others'
 import { useDeleteRoleMutation, useGetRolesAsSelectListQuery, useRoleDetailsMutation } from '../../../../redux/api/rolesApi'
-import { Modal } from '../../../../Components/Modals'
+import { Modal } from '../../../../Components/ui/Modals'
 import { useTranslation } from "react-i18next";
 
 interface Props{

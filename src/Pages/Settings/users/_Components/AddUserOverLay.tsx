@@ -1,6 +1,6 @@
 import React from 'react'
 import UserForm from './UserForm'
-import OverLay from '../../../../Components/Modals/OverLay'
+import OverLay from '../../../../Components/ui/Modals/OverLay'
 import { useTranslation } from "react-i18next";
 
 interface Props{

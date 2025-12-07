@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { ExcelIcon } from "../utils/Icons";
+import { ExcelIcon } from "../../utils/Icons";
 
 export const ExportExelButton = ({ exportExcel }:{ exportExcel:()=>void }) => {
       const {t} = useTranslation();

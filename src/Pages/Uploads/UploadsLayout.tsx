@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import LinksTabs from '../../Components/Common/LinksTabs';
+import LinksTabs from '../../Components/ui/Common/LinksTabs';
 import { Outlet } from 'react-router-dom';
 
 const UploadsLayout = () => {

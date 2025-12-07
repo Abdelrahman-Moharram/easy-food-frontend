@@ -1,5 +1,5 @@
 import React from 'react'
-import ToggledCard from '../../../../../Components/Cards/ToggledCard'
+import ToggledCard from '../../../../../Components/ui/Cards/ToggledCard'
 import { PermissionType } from './PermissionsTypes'
 import AddRolePermissionInput from './AddRolePermissionInput'
 

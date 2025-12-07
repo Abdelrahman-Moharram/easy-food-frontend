@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { numberToMoney } from '../utils/helper';
+import { numberToMoney } from '../../utils/helper';
 import Input from './Input';
-import { RiyalFont } from '../utils/Icons';
+import { RiyalFont } from '../../utils/Icons';
 
 interface props {
 	labelId: string;

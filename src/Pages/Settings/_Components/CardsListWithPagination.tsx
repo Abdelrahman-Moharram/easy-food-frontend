@@ -1,9 +1,9 @@
 import React from 'react'
 import { EditDeleteButtons } from './ButtonsGroups'
-import { ImageSkeleton } from '../../../Components/Common'
-import EmptyData from '../../../Components/Common/EmptyData'
-import Paginition from '../../../Components/Lists/Paginition'
-import { FnBasicCard } from '../../../Components/Cards'
+import { ImageSkeleton } from '../../../Components/ui/Common'
+import EmptyData from '../../../Components/ui/Common/EmptyData'
+import Paginition from '../../../Components/ui/Lists/Paginition'
+import { FnBasicCard } from '../../../Components/ui/Cards'
 
 
 const handleImageSkeleton = () =>{

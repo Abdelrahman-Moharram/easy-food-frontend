@@ -1,7 +1,7 @@
 import React from 'react'
 import ImageSkeleton from './ImageSkeleton';
 import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
-import { capitalizeFirstLetter } from '../utils/helper';
+import { capitalizeFirstLetter } from '../../utils/helper';
 import { ImHome3 } from 'react-icons/im';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

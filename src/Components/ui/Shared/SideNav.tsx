@@ -1,6 +1,6 @@
-import { useAppSelector } from "../../redux/hooks";
-import { HomeIcon, UploadIcon } from "../utils/Icons";
-import { IsAllowedPermissionOrNull } from "../../Pages/Guards/IsAllowedPermission";
+import { useAppSelector } from "../../../redux/hooks";
+import { HomeIcon, UploadIcon } from "../../utils/Icons";
+import { IsAllowedPermissionOrNull } from "../../../Pages/Guards/IsAllowedPermission";
 import SideNavDropDownItem from "./SideNavDropDownItem";
 import { useTranslation } from "react-i18next";
 import { IoMdSettings } from "react-icons/io";

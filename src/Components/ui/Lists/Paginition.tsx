@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { to_int_or_default } from '../utils/helper';
+import { to_int_or_default } from '../../utils/helper';
 import { useSearchParams } from 'react-router-dom';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { LoginForm } from '../../Components/Forms'
+import { LoginForm } from '../../Components/ui/Forms'
 import { useTranslation } from "react-i18next";
 const Login = () => {
   console.log("Login");

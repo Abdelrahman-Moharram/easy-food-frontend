@@ -1,7 +1,7 @@
 
 
 
-import SmallCardsList from '../../Components/Lists/SmallCardsList'
+import SmallCardsList from '../../Components/ui/Lists/SmallCardsList'
 
 const cardsList = [
   {

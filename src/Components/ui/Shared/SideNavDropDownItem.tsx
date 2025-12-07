@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { IsAllowedPermissionOrNull } from '../../Pages/Guards/IsAllowedPermission'
+import { IsAllowedPermissionOrNull } from '../../../Pages/Guards/IsAllowedPermission'
 
 interface innerLinkType{
     title:string,

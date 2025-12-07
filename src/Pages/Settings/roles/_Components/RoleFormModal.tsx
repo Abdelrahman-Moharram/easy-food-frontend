@@ -2,10 +2,10 @@
 import React, { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { useAddRoleMutation, useEditRoleMutation } from '../../../../redux/api/rolesApi'
-import { useRoles } from '../../../../Components/Hooks/Auth/useRoles'
-import Button from '../../../../Components/Common/Button'
-import { Input } from '../../../../Components/Forms'
-import { Modal } from '../../../../Components/Modals'
+import { useRoles } from '../../../../Components/ui/Hooks/Auth/useRoles'
+import Button from '../../../../Components/ui/Common/Button'
+import { Input } from '../../../../Components/ui/Forms'
+import { Modal } from '../../../../Components/ui/Modals'
 import { useTranslation } from "react-i18next";
 
 

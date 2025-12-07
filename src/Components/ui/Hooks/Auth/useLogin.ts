@@ -2,9 +2,9 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import Cookies from "js-cookie"
 import { jwtDecode } from "jwt-decode"
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from '../../../redux/hooks';
-import { useLoginMutation } from '../../../redux/features/authApiSlice';
-import { setAuth } from '../../../redux/features/authSlice';
+import { useAppDispatch } from '../../../../redux/hooks';
+import { useLoginMutation } from '../../../../redux/features/authApiSlice';
+import { setAuth } from '../../../../redux/features/authSlice';
 
 
 export default function useLogin() {

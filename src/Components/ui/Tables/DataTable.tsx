@@ -1,8 +1,8 @@
 import React from 'react'
 import EmptyContent from '../Common/EmptyContent';
-import { beautify_date, numberToMoney } from '../utils/helper';
+import { beautify_date, numberToMoney } from '../../utils/helper';
 import TableSkeleton from './TableSkeleton';
-import { RiyalFont } from '../utils/Icons';
+import { RiyalFont } from '../../utils/Icons';
 import { Tooltip } from "react-tooltip";
 
 interface Props{

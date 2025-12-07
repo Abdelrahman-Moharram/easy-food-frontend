@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { useAppDispatch } from "../../redux/hooks";
-import { setAuth } from "../../redux/features/authSlice";
-import { useRegisterMutation, useLoginMutation } from "../../redux/features/authApiSlice";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setAuth } from "../../../redux/features/authSlice";
+import { useRegisterMutation, useLoginMutation } from "../../../redux/features/authApiSlice";
 import useForm from "../Hooks/Forms/useForm";
 import Form from "./Form";
 

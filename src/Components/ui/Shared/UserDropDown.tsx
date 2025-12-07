@@ -9,9 +9,9 @@ import {
 } from "@headlessui/react";
 import { ImageSkeleton } from "../Common";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hooks";
-import { useLogoutMutation } from "../../redux/features/authApiSlice";
-import { setLogout } from "../../redux/features/authSlice";
+import { useAppDispatch } from "../../../redux/hooks";
+import { useLogoutMutation } from "../../../redux/features/authApiSlice";
+import { setLogout } from "../../../redux/features/authSlice";
 interface user {
   full_name: string;
   username: string;

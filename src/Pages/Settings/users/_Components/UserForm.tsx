@@ -2,11 +2,11 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 import { useAddUserMutation, useEditUserMutation } from '../../../../redux/api/accountsApi'
-import { useUsersForm } from '../../../../Components/Hooks/Auth/useAccounts'
-import { emailRegex, fullNameRegex, usernameRegex } from '../../../../Components/Hooks/Common/validationsRegexRepo'
-import { Input, SelectInput } from '../../../../Components/Forms'
-import OverLayFuncArea from '../../../../Components/Modals/OverLayFuncArea'
-import Button from '../../../../Components/Common/Button'
+import { useUsersForm } from '../../../../Components/ui/Hooks/Auth/useAccounts'
+import { emailRegex, fullNameRegex, usernameRegex } from '../../../../Components/ui/Hooks/Common/validationsRegexRepo'
+import { Input, SelectInput } from '../../../../Components/ui/Forms'
+import OverLayFuncArea from '../../../../Components/ui/Modals/OverLayFuncArea'
+import Button from '../../../../Components/ui/Common/Button'
 import { useTranslation } from "react-i18next";
 
 interface baseType{

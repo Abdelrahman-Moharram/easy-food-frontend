@@ -29,7 +29,7 @@ const LinksTabs = ({ tabs }: { tabs: TabType[] }) => {
           >
             {tab.title}
             {isActive && (
-              <span className="absolute bottom-0 left-0 w-full h-1 bg-teal-600 rounded-t"></span>
+              <span className="absolute bottom-0 left-0 w-full h-1 bg-primary rounded-t"></span>
             )}
           </Link>
         )

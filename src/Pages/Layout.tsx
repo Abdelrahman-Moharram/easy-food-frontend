@@ -7,7 +7,6 @@ import { setAuth } from '../redux/features/authSlice'
 import SideNav from '../Components/Shared/SideNav'
 import { Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import Breadcrumb from '../Components/Common/Breadcrumb'
 
 
 const Layout = ({ children }:{children?:React.ReactNode}) => {
@@ -27,7 +26,6 @@ const Layout = ({ children }:{children?:React.ReactNode}) => {
                 <SideNav />
                 <div className="px-0 w-full min-h-[calc(100vh-78px)] mx-auto overflow-hidden">
                     <div className=" p-10 rounded-tr-2xl mx-8">
-                        <Breadcrumb />
                         <Suspense>
                             {children || <Outlet />}
                         </Suspense>

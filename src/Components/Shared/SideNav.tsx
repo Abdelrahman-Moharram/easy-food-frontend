@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { useAppSelector } from "../../redux/hooks";
-import { MdBrandingWatermark } from "react-icons/md";
-import { HomeIcon } from "../utils/Icons";
+import { HomeIcon, UploadIcon } from "../utils/Icons";
 import { IsAllowedPermissionOrNull } from "../../Pages/Guards/IsAllowedPermission";
 import SideNavDropDownItem from "./SideNavDropDownItem";
 import { useTranslation } from "react-i18next";
-import { BiSolidCategoryAlt } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
 
 
@@ -14,7 +11,7 @@ import { IoMdSettings } from "react-icons/io";
 export default function SideNav() {
     
     const {isAuthenticated}         = useAppSelector(state=>state.auth)
-    const [isHovered, setIsHovered] = useState(false);
+    // const [isHovered, setIsHovered] = useState(false);
     const { t }                     = useTranslation();
 
     
@@ -29,21 +26,18 @@ export default function SideNav() {
             icon:<HomeIcon />,
             baseKey:'',
             permission:''
-        }, 
+        },       
         {
-            title:t("Categories"),
-            innerLinks:[],
-            icon:<BiSolidCategoryAlt />,
-            baseKey:'categories',
+            title:t("Uploads"),
+            innerLinks:[
+                { title: t("Manual Upload"), link: "/uploads/manual", permission:''},
+                { title: t("Daily Upload"), link: "/uploads/daily", permission:''},
+                { title: t("Monthly Upload"), link: "/uploads/monthly", permission:''}
+            ],
+            icon:<UploadIcon />,
+            baseKey:'uploads',
             permission:''
-        }, 
-        {
-            title:t("Brands"),
-            innerLinks:[],
-            icon:<MdBrandingWatermark />,
-            baseKey:'brands',
-            permission:''
-        },      
+        },       
         {
             title: t("Settings"),
             permission: "permissions.roles.view",
@@ -59,8 +53,8 @@ export default function SideNav() {
     return (
         <div 
             className={`${isAuthenticated ? "  hover:w-[280px]":'-me-8'} relative transition-all duration-500overflow-hidden`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            // onMouseEnter={() => setIsHovered(true)}
+            // onMouseLeave={() => setIsHovered(false)}
         >
             <div className={` ${isAuthenticated? 'w-[62px] pt-10 hover:w-[240px]' : 'w-0'} h-full fixed bg-primary transition-all duration-[400ms] rounded-e-md shadow-2xl text-white`}>
                 <ul className="h-[90%] overflow-y-auto overflow-x-hidden py-5 px-1 space-y-1 ">

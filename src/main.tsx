@@ -15,8 +15,11 @@ import Settings from './Pages/Settings/index.tsx'
 import UsersSettings from './Pages/Settings/users/index.tsx'
 import RolesSettings from './Pages/Settings/roles/index.tsx'
 import { IsAllowedPermissionOrRedirect } from './Pages/Guards/IsAllowedPermission.tsx'
-import SignUp from './Pages/Auth/SignUp.tsx';
-import Brands from './Pages/Brands';
+import UploadsLayout from './Pages/Uploads/UploadsLayout.tsx';
+import ManualUpload from './Pages/Uploads/ManualUpload.tsx';
+import DailyUpload from './Pages/Uploads/DailyUpload.tsx';
+import MonthlyUpload from './Pages/Uploads/MonthlyUpload.tsx';
+
 
 const router = createBrowserRouter ([
   {
@@ -65,8 +68,22 @@ const router = createBrowserRouter ([
         ]
       },
       {
-        path:'/brands',
-        element:<Brands />,
+        path:'/uploads',
+        element:<UploadsLayout />,
+        children:[
+          {
+            path:'manual',
+            element:<ManualUpload />
+          },
+          {
+            path:'daily',
+            element:<DailyUpload />
+          },
+          {
+            path:'monthly',
+            element:<MonthlyUpload />
+          },
+        ]
       },
     ],
 
@@ -89,13 +106,13 @@ const router = createBrowserRouter ([
           <Login />
         </NotAuthenticatedOrRedirect>
       },
-      {
-        path:"signup",
-        element:
-        <NotAuthenticatedOrRedirect>
-          <SignUp />
-        </NotAuthenticatedOrRedirect>
-      }
+      // {
+      //   path:"signup",
+      //   element:
+      //   <NotAuthenticatedOrRedirect>
+      //     <SignUp />
+      //   </NotAuthenticatedOrRedirect>
+      // }
     ]
   },
       

@@ -65,7 +65,8 @@ export const apiSlice = createApi({
     'users',
     'roles-permissions',
     'roles',
-    'brands',
+
+    'requests',
   ],
   endpoints: () => ({}),
 });

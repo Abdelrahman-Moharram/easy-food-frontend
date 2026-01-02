@@ -15,6 +15,7 @@ import Settings from './Pages/Settings/index.tsx'
 import UsersSettings from './Pages/Settings/users/index.tsx'
 import RolesSettings from './Pages/Settings/roles/index.tsx'
 import { IsAllowedPermissionOrRedirect } from './Pages/Guards/IsAllowedPermission.tsx'
+import Menu from './Pages/Menu/index.tsx';
 
 
 
@@ -33,6 +34,14 @@ const router = createBrowserRouter ([
     </AuthenticatedOrRedirect>
     ),
     children:[
+      {
+        path:'/branches',
+        element:<>test element</>
+      },
+      {
+        path:'/menus',
+        element:<Menu />
+      },
   
       {
         path:'/settings',

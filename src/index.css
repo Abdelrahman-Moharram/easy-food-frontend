@@ -33,7 +33,6 @@ body{
   --color: 0, 0, 0;
   --side-nav: 49, 49, 49, 1;
   --negative-color:255, 255, 255;
-  background: rgba(var(--background));
 
 }
 .tw-blur, .blur, .blur-sm, .blur-md, .blur-lg {

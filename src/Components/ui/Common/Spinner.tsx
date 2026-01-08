@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { ImSpinner3 } from 'react-icons/im';
+import { PiSpinnerGap } from 'react-icons/pi';
 
 interface Props {
 	sm?: boolean;
@@ -16,7 +16,7 @@ export default function Spinner({ sm, md, lg }: Props) {
 
 	return (
 		<div role='status'>
-			<ImSpinner3 className={className} />
+			<PiSpinnerGap className={className} />
 			<span className='sr-only'>Loading...</span>
 		</div>
 	);

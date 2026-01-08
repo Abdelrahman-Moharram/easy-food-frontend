@@ -1,105 +1,240 @@
-import React from 'react';
-import Button from '../../Components/ui/Common/Button';
+import React, { useState } from 'react';
 
-const Menu = () => {
-  // Sample data for the menu
-  const menuItems = [
-    { id: 1, name: 'Espresso', price: '$3.50', desc: 'Rich and bold single shot.' },
-    { id: 2, name: 'Cappuccino', price: '$4.50', desc: 'Espresso with steamed milk foam.' },
-    { id: 3, name: 'Latte', price: '$4.75', desc: 'Creamy milk with a shot of espresso.' },
-    { id: 4, name: 'Croissant', price: '$3.00', desc: 'Buttery, flaky, and fresh.' },
-    { id: 5, name: 'Bagel', price: '$2.50', desc: 'Toasted with cream cheese.' },
-    { id: 6, name: 'Muffin', price: '$3.25', desc: 'Blueberry or Chocolate chip.' },
-  ];
+const ProfessionalMenuBuilder = () => {
+  // --- STATE ---
+  const [menu, setMenu] = useState([
+    { 
+      id: 1, 
+      title: 'Appetizers', 
+      items: [
+        { name: 'Truffle Arancini', price: '14', desc: 'Risotto balls, black truffle oil, parmesan dust.' },
+        { name: 'Beef Carpaccio', price: '18', desc: 'Thinly sliced raw beef, capers, olive oil, lemon.' }
+      ] 
+    },
+    { 
+      id: 2, 
+      title: 'Main Courses', 
+      items: [
+        { name: 'Pan Seared Salmon', price: '32', desc: 'Asparagus risotto, lemon butter sauce.' }
+      ] 
+    }
+  ]);
+
+  const [sectionTitle, setSectionTitle] = useState('');
+  const [itemForm, setItemForm] = useState({
+    sectionId: '',
+    name: '',
+    price: '',
+    desc: ''
+  });
+
+  // --- HANDLERS ---
+  const addSection = (e) => {
+    e.preventDefault();
+    if (!sectionTitle) return;
+    setMenu([...menu, { id: Date.now(), title: sectionTitle, items: [] }]);
+    setSectionTitle('');
+  };
+
+  const addItem = (e) => {
+    e.preventDefault();
+    if (!itemForm.sectionId || !itemForm.name) return;
+
+    const updatedMenu = menu.map(section => {
+      if (section.id.toString() === itemForm.sectionId) {
+        return { 
+          ...section, 
+          items: [...section.items, { ...itemForm }] 
+        };
+      }
+      return section;
+    });
+
+    setMenu(updatedMenu);
+    setItemForm({ ...itemForm, name: '', price: '', desc: '' }); // keep section selected
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      {/* Main Grid Container: 3 Columns Total */}
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto'>
+    <div className="min-h-screen bg-neutral-100 p-8 font-sans text-neutral-800">
+      
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
         
-        {/* LEFT SIDE: The Content (Takes up 2 parts) */}
-        <div className="md:col-span-2">
-          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Our Menu</h1>
-            <p className="text-gray-500 mb-8">Freshly brewed coffee and baked goods.</p>
+        {/* --- LEFT SIDE: THE MENU PREVIEW (2/3) --- */}
+        <div className="lg:col-span-2">
+          {/* Paper Container */}
+          <div className="bg-white min-h-[800px] shadow-2xl p-12 md:p-16 relative">
             
-            {/* Nested Grid for Menu Items */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {menuItems.map((item) => (
-                <div key={item.id} className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-lg text-gray-800">{item.name}</h3>
-                    <span className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
-                      {item.price}
-                    </span>
+            {/* Decorative Border/Frame */}
+            <div className="absolute inset-4 border border-double border-neutral-200 pointer-events-none"></div>
+
+            {/* Header */}
+            <div className="text-center mb-16 relative z-10">
+              <h1 className="font-serif text-5xl font-bold tracking-wider text-neutral-900 mb-2 uppercase">
+                Le Bistro
+              </h1>
+              <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase">Fine Dining & Cocktails</p>
+            </div>
+
+            {/* Menu Content */}
+            <div className="space-y-12 max-w-2xl mx-auto relative z-10">
+              {menu.length === 0 && (
+                <div className="text-center text-neutral-300 py-20 italic font-serif">
+                  Menu is currently empty...
+                </div>
+              )}
+
+              {menu.map((section) => (
+                <div key={section.id}>
+                  {/* Section Title */}
+                  <h2 className="font-serif text-2xl text-center text-neutral-800 uppercase tracking-widest mb-6 border-b border-neutral-200 pb-2 mx-10">
+                    {section.title}
+                  </h2>
+
+                  {/* Items Grid */}
+                  <div className="space-y-6">
+                    {section.items.map((item, idx) => (
+                      <div key={idx} className="group">
+                        <div className="flex items-end justify-between w-full">
+                          {/* Name */}
+                          <span className="font-bold text-neutral-800 text-lg whitespace-nowrap">
+                            {item.name}
+                          </span>
+                          
+                          {/* Dotted Leader Line */}
+                          <span className="flex-grow border-b-2 border-dotted border-neutral-300 mx-2 mb-1 opacity-50"></span>
+                          
+                          {/* Price */}
+                          <span className="font-serif font-bold text-lg text-neutral-900">
+                            {item.price}
+                          </span>
+                        </div>
+                        
+                        {/* Description */}
+                        <p className="text-sm text-neutral-500 italic mt-1 font-serif pr-12">
+                          {item.desc}
+                        </p>
+                      </div>
+                    ))}
+                    {section.items.length === 0 && (
+                      <p className="text-center text-xs text-neutral-300 uppercase tracking-widest">No items yet</p>
+                    )}
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">{item.desc}</p>
-                  
-                  <Button 
-                    variant='blue-outline'
-                    title='Add to Order'
-                    fontBold={false}
-                  />
                 </div>
               ))}
             </div>
+
+            {/* Footer */}
+            <div className="mt-20 text-center relative z-10">
+              <p className="text-[10px] uppercase tracking-widest text-neutral-400">
+                123 Culinary Ave, Food City • Established 2024
+              </p>
+            </div>
+
           </div>
         </div>
 
-        {/* RIGHT SIDE: The Form (Takes up 1 part) */}
-        <div className="md:col-span-1">
-          {/* 'sticky' keeps the form in view while scrolling the menu */}
-          <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-600 sticky top-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">Quick Order</h2>
+        {/* --- RIGHT SIDE: EDITOR TOOLS (1/3) --- */}
+        <div className="lg:col-span-1">
+          <div className="sticky top-8 space-y-6">
             
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                <input 
-                  type="text" 
-                  placeholder="John Doe" 
-                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            {/* Header for Admin */}
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-2 h-8 bg-neutral-900"></div>
+              <h2 className="text-xl font-bold uppercase tracking-wide text-neutral-800">Kitchen Manager</h2>
+            </div>
+
+            {/* 1. SECTION CREATOR */}
+            <div className="bg-white p-6 shadow-lg border border-neutral-200">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">Step 1: Create Category</h3>
+              <form onSubmit={addSection} className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="e.g. Desserts"
+                  value={sectionTitle}
+                  onChange={(e) => setSectionTitle(e.target.value)}
+                  className="flex-grow bg-neutral-50 border border-neutral-300 p-3 text-sm focus:outline-none focus:border-neutral-900 transition-colors"
                 />
-              </div>
+                <button type="submit" className="bg-neutral-900 text-white px-4 text-sm hover:bg-neutral-700 transition-colors">
+                  ADD
+                </button>
+              </form>
+            </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Table Number</label>
-                <select className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                  <option>Select a table...</option>
-                  <option>Table 1</option>
-                  <option>Table 2</option>
-                  <option>Table 3</option>
-                </select>
-              </div>
+            {/* 2. ITEM CREATOR */}
+            <div className="bg-white p-6 shadow-lg border border-neutral-200 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-neutral-100 -mr-8 -mt-8 rounded-full"></div>
+              
+              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4 relative z-10">Step 2: Add Dish</h3>
+              
+              <form onSubmit={addItem} className="space-y-4 relative z-10">
+                {/* Category Select */}
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-neutral-500 mb-1">Category</label>
+                  <select
+                    value={itemForm.sectionId}
+                    onChange={(e) => setItemForm({ ...itemForm, sectionId: e.target.value })}
+                    className="w-full bg-neutral-50 border border-neutral-300 p-3 text-sm focus:outline-none focus:border-neutral-900"
+                    required
+                  >
+                    <option value="">Select Category...</option>
+                    {menu.map((s) => (
+                      <option key={s.id} value={s.id}>{s.title}</option>
+                    ))}
+                  </select>
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Special Requests</label>
-                <textarea 
-                  rows={3} 
-                  placeholder="No sugar, extra ice..." 
-                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                ></textarea>
-              </div>
+                {/* Name & Price Row */}
+                <div className="flex gap-3">
+                  <div className="w-2/3">
+                    <label className="block text-[10px] font-bold uppercase text-neutral-500 mb-1">Dish Name</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Steak"
+                      value={itemForm.name}
+                      onChange={(e) => setItemForm({ ...itemForm, name: e.target.value })}
+                      className="w-full bg-neutral-50 border border-neutral-300 p-3 text-sm focus:outline-none focus:border-neutral-900"
+                    />
+                  </div>
+                  <div className="w-1/3">
+                    <label className="block text-[10px] font-bold uppercase text-neutral-500 mb-1">Price</label>
+                    <input
+                      type="number"
+                      placeholder="0.00"
+                      value={itemForm.price}
+                      onChange={(e) => setItemForm({ ...itemForm, price: e.target.value })}
+                      className="w-full bg-neutral-50 border border-neutral-300 p-3 text-sm focus:outline-none focus:border-neutral-900"
+                    />
+                  </div>
+                </div>
 
-              <div className="pt-2">
-                {/* <button 
-                  type="button" 
-                  className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-md"
+                {/* Description */}
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-neutral-500 mb-1">Description</label>
+                  <textarea
+                    rows="3"
+                    placeholder="Ingredients..."
+                    value={itemForm.desc}
+                    onChange={(e) => setItemForm({ ...itemForm, desc: e.target.value })}
+                    className="w-full bg-neutral-50 border border-neutral-300 p-3 text-sm focus:outline-none focus:border-neutral-900"
+                  ></textarea>
+                </div>
+
+                <button 
+                  type="submit" 
+                  disabled={menu.length === 0}
+                  className="w-full py-3 bg-neutral-900 text-white font-bold text-xs uppercase tracking-widest hover:bg-neutral-800 disabled:bg-neutral-300 disabled:cursor-not-allowed transition-colors"
                 >
-                  Submit Order
-                </button> */}
-                <Button 
-                  variant='blue'
-                  title='Submit Order'
-                />
-              </div>
-            </form>
+                  Add Item to Menu
+                </button>
+              </form>
+            </div>
+
           </div>
         </div>
 
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Menu
+export default ProfessionalMenuBuilder;

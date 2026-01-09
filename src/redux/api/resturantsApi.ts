@@ -1,6 +1,6 @@
 import { apiSlice } from "../services/apiSlice";
 
-const base_url = 'requests/'
+const base_url = 'resturants/'
 
 const requestsApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder)=>({
@@ -8,7 +8,7 @@ const requestsApiSlice = apiSlice.injectEndpoints({
             query:()=>({
                 url:base_url+'',
             }),
-            providesTags:['requests']
+            providesTags:['resturants']
         }),
         
         // ------------------------------------------------ //

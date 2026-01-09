@@ -3,34 +3,41 @@ import Cookies from "js-cookie"
 const colormode = Cookies.get('colormode') || 'light'
 // const isAuthenticated = Cookies.get('access_token') ? true : false
 
-
+interface resturantType{
+	id	 : string,
+	name : string,
+}
 
 const emptyUser = {
-	username:'',
-	full_name:"",
-	id:'',
-	role:'',
-	permissions:[]
+	id			: '',
+	username	: '',
+	full_name	: '',
+	email		: '',
+	role		: '',
+	resturant	: undefined,
+	permissions	: []
 }
 interface user {
-    id:string;
-	full_name: string;
-	username: string;
-	role:string;
-	permissions:string[]
+    id			: string;
+	full_name	: string;
+	email		: string;
+	username	: string;
+	role		: string;
+	permissions	: string[];
+	resturant?	: resturantType;
 }
 interface AuthState {
-	isAuthenticated: boolean;
-	isLoading: boolean;
-    user:user,
-	colormode:string
+	isAuthenticated	: boolean;
+	isLoading		: boolean;
+	colormode		: string;
+    user			: user,
 }
 
 const initialState = {
-    isAuthenticated: false,
-	isLoading: true,
-    user: emptyUser,
-	colormode:colormode
+    isAuthenticated	: false,
+	isLoading		: true,
+    user			: emptyUser,
+	colormode		: colormode
 } as AuthState;
 
 const authSlice = createSlice({

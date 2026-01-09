@@ -36,14 +36,18 @@ const Input = ({
 }: props) => {
     const [inputType, setType] = useState(type)	
 	return (
-		<div className='p-0'>
-			<label 
-				htmlFor={labelId}
-            	className={"block text-md font-medium  text-gray-700 "+ (errors?.length?"border-red-500":" border-none ")}
-			> 
-				{label} 
-			</label>
-			<div className='relative mt-[4px]'>
+		<div className='p-0 space-y-4'>
+			{
+				label?
+					<label 
+						htmlFor={labelId}
+						className={"block text-lg font-medium shadow-md text-gray-700 "+ (errors?.length?"border-red-500":" border-none ")}
+					> 
+						{label} 
+					</label>
+				:null
+			}
+			<div className='relative'>
 				<input
 					type={inputType}
 					name={labelId}
@@ -60,7 +64,7 @@ const Input = ({
 					defaultValue={defaultValue}
 					required={required}
 					placeholder={placeholder}
-					className={`mt-0 w-full py-1 px-4 blur-none h-full border border-[#E3E5E5] rounded-lg outline-none ${inputClassName} ${errors?.length ? "border-red-500" : ""}`}
+					className={`mt-0 w-full py-1 px-4 blur-none h-full border rounded-lg outline-none ${inputClassName} ${errors?.length ? "border-red-500" : ""}`}
 				/>
 				{
 					type === 'password' ? (

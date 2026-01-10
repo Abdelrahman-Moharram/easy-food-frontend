@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { GripVertical, Plus, Trash2 } from 'lucide-react';
+import { GripVertical, Trash2 } from 'lucide-react';
 
 const OrderSections = () => {
   const [sections, setSections] = useState([
@@ -41,10 +41,10 @@ const OrderSections = () => {
   };
 
   return (
+
     <div className="min-h-full">
-      <div className="bg-white my-auto shadow-md p-6">
+      <div className="bg-white p-6 shadow-lg border border-neutral-200 rounded-lg">
         <div className="mb-6">
-            <h2 className="text-xl font-bold text-slate-800">Menu Structure</h2>
             <p className="text-sm text-slate-500">Drag sections to reorder how they appear to customers.</p>
         </div>
 

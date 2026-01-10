@@ -6,6 +6,7 @@ import SideNav from '../Components/ui/Shared/SideNav'
 import { Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Header } from '../Components/ui/Shared'
+import { Setup } from '../Components/utils'
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
     const { data } = useRetrieveUserQuery()
@@ -24,6 +25,7 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
             dir={i18n.language == "en" ? "ltr" : "rtl"} 
             className='light h-screen flex flex-col overflow-hidden' 
         >
+            <Setup />
             {/* Header stays at the top */}
             <Header />
 

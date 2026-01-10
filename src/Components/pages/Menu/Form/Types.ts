@@ -7,7 +7,7 @@ export interface MealType{
 
 
 export interface SectionType{
-    id          : string,
+    id?         : string,
     name        : string,
     meals       : MealType[],
 }
@@ -18,4 +18,10 @@ export interface MenuType{
     caption     : string,
     description : string,
     sections    : SectionType[]
+}
+
+
+export const emptySectionForm = {
+    id      : '',
+    name    : ''
 }

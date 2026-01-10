@@ -36,7 +36,7 @@ const Input = ({
 }: props) => {
     const [inputType, setType] = useState(type)	
 	return (
-		<div className='p-0 space-y-4'>
+		<div className='p-0 space-y-1'>
 			{
 				label?
 					<label 
@@ -81,15 +81,15 @@ const Input = ({
 			{children}
 			{
 				typeof(errors) === 'string'?
-					<div className="mb-3">
-							<div className="relative">
+					<div className="absolute"> 
+							<div className="">
 								<span key={errors} className='text-red-500 block'>{errors}</span>
 							</div>
 					</div>
 				:
 					errors?.length?
-						<div className="mb-3">
-							<div className="relative">
+						<div className="absolute">
+							<div className="">
 								{
 									errors?.map(error=>
 										<span key={error} className='text-red-500 block'>{error}</span>

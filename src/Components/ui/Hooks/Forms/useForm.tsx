@@ -17,11 +17,11 @@ const useForm = (initialValues: FormType = {}, globalValidationSchema: Validatio
         let newValue: any;
 
         if (type === "file") {
-        newValue = files?.length === 1 ? files[0] : files;
+            newValue = files?.length === 1 ? files[0] : files;
         } else if (type === "checkbox") {
-        newValue = checked; 
+            newValue = checked; 
         } else {
-        newValue = value;
+            newValue = value;
         }
 
 
@@ -60,19 +60,16 @@ const useForm = (initialValues: FormType = {}, globalValidationSchema: Validatio
 
     const validateForm = (): boolean => {
         const errors: FormType = {};
-
-        for (const key in globalValidationSchema) {
-            const value = form[key];
-            const schema = globalValidationSchema[key];
-
-            const fieldErrors = DefaultInputValidate({ name: key, value, validationSchema: schema });
-            if (fieldErrors.length > 0) {
-                errors[key] = fieldErrors;
-            }
+        
+        for (const key in formErrors) {
+            const value = formErrors?.[key];
+            
+            if((typeof(value) === 'string' || Array.isArray(value)) && value?.length > 0)
+                return false
         }
 
         setFormErrors(errors);
-        return Object.keys(errors).length === 0;
+        return true;
     };
 
     return {

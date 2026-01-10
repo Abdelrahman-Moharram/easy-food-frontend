@@ -1,7 +1,9 @@
 import React from 'react'
-import { MenuType } from './Types'
+import { useGetMenuDetailsQuery } from '../../../../redux/api/menusApi'
 
-const Professional = ({menu}:{menu:MenuType}) => {
+const Professional  = ({resturant_id}:{resturant_id:string}) => {
+  const {data:menu}      = useGetMenuDetailsQuery({resturant_id:resturant_id}, {skip:!resturant_id, refetchOnMountOrArgChange:true, refetchOnReconnect:true})
+
   return (
     <div>
         {/* Paper Container */}
@@ -21,9 +23,9 @@ const Professional = ({menu}:{menu:MenuType}) => {
             {/* Menu Content */}
             <div className="space-y-12 max-w-2xl mx-auto relative z-10">
                 {menu?.sections.length === 0 && (
-                <div className="text-center text-neutral-300 py-20 italic font-serif">
-                    Menu is currently empty...
-                </div>
+                    <div className="text-center text-neutral-300 py-20 italic font-serif">
+                        Menu is currently empty...
+                    </div>
                 )}
 
                 {menu?.sections.map((section) => (

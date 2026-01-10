@@ -15,9 +15,9 @@ const defaultMaxValueError = (name: string, maxValue: number, alter_name?: strin
 const defaultMinValueError = (name: string, MinValue: number, alter_name?: string) =>
   `قيمة ${alter_name || name} لايجب أن تكون أقل من ${MinValue}`;
 const defaultMaxLengthError = (name: string, maxLength: number, alter_name?: string) =>
-  `لا يجب أن يكون ${alter_name || name} أقل من ${maxLength} أحرف`;
+  `لا يجب أن يكون ${alter_name || name} أكبر من ${maxLength} أحرف`;
 const defaultMinLengthError = (name: string, minLength: number, alter_name?: string) =>
-  `لا يجب أن يكون ${alter_name || name} أكبر من ${minLength} أحرف`;
+  `لا يجب أن يكون ${alter_name || name} أقل من ${minLength} أحرف`;
 
 const defaultExtensionError = (exts: string[], alter_name?: string) =>
   `صيغة الملف المسموح بها هي: ${exts.join(", ")} ${alter_name ? `للحقل ${alter_name}` : ""}`;

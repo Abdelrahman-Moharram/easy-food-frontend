@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { GripVertical, Trash2 } from 'lucide-react';
+import { useDeleteSectionMutation, useGetSectionsListQuery } from '../../../../redux/api/menusApi';
 
 const OrderSections = () => {
-  const [sections, setSections] = useState([
-    { id: '1', title: 'Appetizers' },
-    { id: '2', title: 'Main Courses' },
-    { id: '3', title: 'Desserts' },
-    { id: '4', title: 'Beverages' },
-  ]);
-
-  const [newTitle, setNewTitle] = useState('');
-
+  const {data:sections, isLoading}  = useGetSectionsListQuery({refetchOnMountOrArgChange:true, refetchOnReconnect:true})
+  const [deleteSection]             = useDeleteSectionMutation()
   // Handle Drag End
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -22,22 +15,12 @@ const OrderSections = () => {
 
     setSections(items);
   };
+  
 
-  // Add Section
-//   const handleAdd = (e) => {
-//     e.preventDefault();
-//     if (!newTitle.trim()) return;
-//     const newSection = {
-//       id: Date.now().toString(),
-//       title: newTitle,
-//     };
-//     setSections([...sections, newSection]);
-//     setNewTitle('');
-//   };
 
   // Remove Section
   const removeSection = (id) => {
-    setSections(sections.filter((s) => s.id !== id));
+    setSections(sections?.filter((s) => s.id !== id));
   };
 
   return (
@@ -56,8 +39,8 @@ const OrderSections = () => {
                     ref={provided.innerRef} 
                     className="space-y-3"
                 >
-                {sections.map((section, index) => (
-                    <Draggable key={section.id} draggableId={section.id} index={index}>
+                {sections?.map((section, index) => (
+                    <Draggable key={section?.id} draggableId={section?.id} index={index}>
                     {(provided, snapshot) => (
                         <div
                         ref={provided.innerRef}
@@ -71,11 +54,11 @@ const OrderSections = () => {
                             <div {...provided.dragHandleProps} className="text-slate-400 hover:text-slate-600 cursor-grab active:cursor-grabbing">
                             <GripVertical size={20} />
                             </div>
-                            <span className="font-semibold text-slate-700">{section.title}</span>
+                            <span className="font-semibold text-slate-700">{section?.name}</span>
                         </div>
 
                         <button 
-                            onClick={() => removeSection(section.id)}
+                            onClick={() => removeSection(section?.id)}
                             className="text-slate-400 hover:text-red-500 transition-colors"
                         >
                             <Trash2 size={18} />
@@ -90,7 +73,7 @@ const OrderSections = () => {
             </Droppable>
         </DragDropContext>
         
-        {sections.length === 0 && (
+        {sections?.length === 0 && (
             <div className="text-center py-12 border-2 border-dashed border-slate-200 rounded-lg text-slate-400 italic">
             No sections yet. Add one from the right panel.
             </div>

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useGetMenuDetailsQuery } from '../../../../redux/api/menusApi'
 
-const Professional  = ({resturant_id}:{resturant_id:string}) => {
-  const {data:menu}      = useGetMenuDetailsQuery({resturant_id:resturant_id}, {skip:!resturant_id, refetchOnMountOrArgChange:true, refetchOnReconnect:true})
+const Professional  = () => {
+  const {data:menu}      = useGetMenuDetailsQuery({refetchOnMountOrArgChange:true, refetchOnReconnect:true})
 
   return (
     <div>

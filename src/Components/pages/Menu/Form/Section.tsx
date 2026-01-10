@@ -7,7 +7,7 @@ import { showMessage } from '../../../ui/Common/ShowMessage'
 import { useTranslation } from "react-i18next";
 import { useAddSectionMutation } from '../../../../redux/api/menusApi'
 
-const SectionForm = ({resturant_id}:{resturant_id:string}) => {
+const SectionForm = () => {
     const {t}                       = useTranslation()
     const [addSection, {isLoading}] = useAddSectionMutation()
     const {
@@ -26,11 +26,10 @@ const SectionForm = ({resturant_id}:{resturant_id:string}) => {
             showMessage('toast', 'error', t('please enter a valid section name'))
             return
         }
-        if(!resturant_id)
-            return
 
 
-        addSection({form:getFormData(), resturant_id})
+
+        addSection({form:getFormData()})
             .unwrap()
             .then(res=>{
                 console.log(res)

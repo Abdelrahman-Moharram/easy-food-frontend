@@ -13,6 +13,7 @@ const SectionForm = () => {
     const {
         form,
         formErrors,
+        setForm,
         onChange,
         validateForm,
         getFormData
@@ -30,12 +31,13 @@ const SectionForm = () => {
 
 
         addSection({form:getFormData()})
-            .unwrap()
-            .then(res=>{
-                console.log(res)
-            }).catch(err=>{
-                console.log(err);
-            })
+        .unwrap()
+        .then(res=>{
+            setForm(emptySectionForm)
+            showMessage('toast', 'success', t('section added successfully'))
+        }).catch(err=>{
+            showMessage('toast', 'error', t('section added failed'))
+        })
 
     }
 

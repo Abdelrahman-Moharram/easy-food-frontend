@@ -7,7 +7,7 @@ const Professional  = () => {
   return (
     <div>
         {/* Paper Container */}
-        <div className="bg-white min-h-[800px] shadow-2xl p-12 md:p-16 relative">
+        <div className="bg-container min-h-[800px] shadow-2xl p-12 md:p-16 relative">
         
             {/* Decorative Border/Frame */}
             <div className="absolute inset-4 border border-double border-neutral-200 pointer-events-none"></div>

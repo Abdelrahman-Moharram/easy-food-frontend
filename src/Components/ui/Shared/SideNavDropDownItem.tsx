@@ -24,10 +24,10 @@ const SideNavDropDownItem = ({ title, icon, path }: Props) => {
           transition-[background-color,transform,box-shadow,color]
           duration-200
           ease-out
-          group-hover:bg-white
+          group-hover:bg-container
           group-hover:text-primary
           group-hover:scale-105
-          ${isActive ? 'bg-white text-primary scale-105 shadow-sm' : 'bg-transparent'}
+          ${isActive ? 'bg-container text-primary scale-105 shadow-sm' : 'bg-transparent'}
         `}
       >
         {icon}

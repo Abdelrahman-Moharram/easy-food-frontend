@@ -9,7 +9,7 @@ const MealsForm = () => {
             name="Meals"
         />
         {/* 2. ITEM CREATOR */}
-        <div className="bg-white p-6 shadow-lg border border-neutral-200 relative  overflow-hidden rounded-lg">
+        <div className="bg-container p-6 shadow-lg border border-neutral-200 relative  overflow-hidden rounded-lg">
             {/* <div className="absolute top-0 right-0 w-16 h-16 bg-neutral-100 -mr-8 -mt-8 rounded-full"></div> */}
             
             <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4 relative z-10">Step 2: Add Dish</h3>

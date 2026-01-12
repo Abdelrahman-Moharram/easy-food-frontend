@@ -4,7 +4,7 @@ const Header = () => {
   const { user } = useAppSelector(state => state.auth);
 
   return (
-    <div className="bg-white">
+    <div className="bg-container">
       <div className="px-3.5">
 
         <div className="flex py-2 items-center justify-between">

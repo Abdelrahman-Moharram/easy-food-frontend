@@ -32,17 +32,14 @@ const SectionForm = () => {
 
         addSection({form:getFormData()})
         .unwrap()
-        .then(res=>{
+        .then(() => {
             setForm(emptySectionForm)
-            showMessage('toast', 'success', t('section added successfully'))
-        }).catch(err=>{
-            showMessage('toast', 'error', t('section added failed'))
+            // showMessage('toast', 'success', t('section added successfully'))
         })
-
     }
 
   return (
-    <div className="bg-white p-6 pb-8 shadow-lg border border-neutral-200 rounded-lg">
+    <div className="bg-container p-6 pb-8 shadow-lg border border-neutral-200 rounded-lg">
         <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">Step 1: Create Category</h3>
         <form onSubmit={onSubmit} className="grid grid-cols-3 gap-2">
         

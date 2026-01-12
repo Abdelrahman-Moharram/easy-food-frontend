@@ -25,7 +25,7 @@ const ColorInput = ({
             <label htmlFor={labelId} className="block text-sm font-medium mb-2">{label}</label>
             <input 
                 type="color" 
-                className="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none"
+                className="p-1 h-10 w-14 block bg-container border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none"
                 id={labelId} 
                 value={value}
                 required={required}

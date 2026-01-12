@@ -17,7 +17,7 @@ const Login = () => {
 
         {/* form container */}
         <div className="w-[50%] lg:pr-16 bg-login-container">
-          <div className=" bg-white lg:px-8 default-shadow-xl py-16 rounded-xl ">
+          <div className=" bg-container lg:px-8 default-shadow-xl py-16 rounded-xl ">
             <div className='mb-4'>
               <h2 className='text-[40px] font-[400]'>{t("Hello")}</h2>
               <h2 className='text-[40px] font-[600] text-primary'> {t("Login")}</h2>

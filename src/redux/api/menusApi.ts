@@ -48,6 +48,14 @@ const requestsApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['menus']
         }),
 
+        updateSection: builder.mutation({
+            query: ({ section_id, form }: { section_id: string, form: FormData }) => ({
+                url: `${base_url}sections/${section_id}/edit/`,
+                method: 'PUT',
+                body: form
+            }),
+            invalidatesTags: ['menus']
+        }),
 
     })
 })
@@ -59,7 +67,8 @@ export const {
     useGetSectionsListQuery,
     useAddSectionMutation,
     useDeleteSectionMutation,
-    useSwapSectionMutation
+    useSwapSectionMutation,
+    useUpdateSectionMutation
 
 } = requestsApiSlice
 

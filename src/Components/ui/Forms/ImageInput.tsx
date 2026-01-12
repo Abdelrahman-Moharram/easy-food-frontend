@@ -82,7 +82,7 @@ const ImageInput = ({
                             </div>
                         }
                         <div 
-                            className="preview-image absolute gap-4 transition-all font-extrabold text-secondry flex justify-center items-center top-0 bottom-0 left-0 right-0  hover:bg-white/50"
+                            className="preview-image absolute gap-4 transition-all font-extrabold text-secondry flex justify-center items-center top-0 bottom-0 left-0 right-0  hover:bg-container/50"
                         >
                             <div className="hidden bg-card text-color gap-2 items-center px-8 py-3 rounded-md">
                                 <IoIosCloudUpload />

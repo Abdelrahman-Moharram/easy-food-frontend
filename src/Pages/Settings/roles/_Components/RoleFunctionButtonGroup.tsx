@@ -11,7 +11,7 @@ interface Props{
 }
 export const RoleFunctionButtonGroup = ({editAction, deleteAction, permissionsAction, item}:Props) => {
   return (
-    <span className="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
+    <span className="inline-flex overflow-hidden rounded-md border bg-container shadow-sm">
         <IsAllowedPermissionOrNull
             permission='permissions.roles.edit'
         >

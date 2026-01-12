@@ -19,7 +19,7 @@ const Menu = () => {
         
         {/* LEFT SIDE: The Content (Takes up 2 parts) */}
         <div className="md:col-span-2">
-          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+          <div className="bg-container rounded-xl shadow-sm p-8 border border-gray-100">
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Our Menu</h1>
             <p className="text-gray-500 mb-8">Freshly brewed coffee and baked goods.</p>
             
@@ -49,7 +49,7 @@ const Menu = () => {
         {/* RIGHT SIDE: The Form (Takes up 1 part) */}
         <div className="md:col-span-1">
           {/* 'sticky' keeps the form in view while scrolling the menu */}
-          <div className="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-600 sticky top-8">
+          <div className="bg-container rounded-xl shadow-lg p-6 border-t-4 border-blue-600 sticky top-8">
             <h2 className="text-xl font-bold text-gray-800 mb-6">Quick Order</h2>
             
             <form className="space-y-4">

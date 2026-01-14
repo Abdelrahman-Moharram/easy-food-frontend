@@ -2,20 +2,22 @@ import React, { ChangeEvent, useState } from 'react'
 import { FaEye } from 'react-icons/fa';
 
 interface props {
-	labelId: string;
-	type: string;
-	onChange: (e:ChangeEvent<HTMLInputElement>) => void;
-	onKeyDown?: (event:React.KeyboardEvent<HTMLInputElement>) => void;
-	value: string | number | null;
-	label?: string
-	required?: boolean;
-    children?: React.ReactNode | undefined
+	labelId		 	: string;
+	value		 	: string | number | null;
+	type		 	: 'text' | 'number' | 'password';
+
+	label?		 	: string
+	onChange	 	: (e:ChangeEvent<HTMLInputElement>) => void;
+	onKeyDown?	 	: (event:React.KeyboardEvent<HTMLInputElement>) => void;
+	required?	 	: boolean;
+    children?	 	: React.ReactNode | undefined
+    defaultValue?	: string | number,
+	placeholder?	: string,
+	inputClassName?	: string,
+	
+	disabled?		: boolean,
+	max_length?		: number
     errors?
-    defaultValue?:string|number,
-	placeholder?: string,
-	inputClassName?:string,
-	disabled?:boolean,
-	max_length?:number
 }
 
 const Input = ({
@@ -26,13 +28,13 @@ const Input = ({
 	value,
 	label,
 	placeholder,
-	required = false,
-	disabled = false,
     children,
     defaultValue,
     errors,
 	inputClassName,
-	max_length
+	max_length,
+	required = false,
+	disabled = false,
 }: props) => {
     const [inputType, setType] = useState(type)	
 	return (
@@ -41,9 +43,9 @@ const Input = ({
 				label?
 					<label 
 						htmlFor={labelId}
-						className={"block text-lg font-medium shadow-md text-gray-700 "+ (errors?.length?"border-red-500":" border-none ")}
+						className={"block text-[10px] font-bold uppercase text-neutral-500 mb-1 "+ (errors?.length?"border-red-500":" border-none ")}
 					> 
-						{label} 
+						{label}
 					</label>
 				:null
 			}
@@ -64,7 +66,7 @@ const Input = ({
 					defaultValue={defaultValue}
 					required={required}
 					placeholder={placeholder}
-					className={`mt-0 w-full py-1 px-4 blur-none h-full border rounded-lg outline-none ${inputClassName} ${errors?.length ? "border-red-500" : ""}`}
+					className={`mt-0 w-full py-1 px-3 blur-none h-full border text-sm rounded-lg outline-none bg-neutral-50 ${inputClassName} ${errors?.length ? "border-red-500" : ""}`}
 				/>
 				{
 					type === 'password' ? (

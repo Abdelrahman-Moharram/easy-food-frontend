@@ -1,13 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { numberToMoney } from '../../utils/helper';
 import Input from './Input';
-import { RiyalFont } from '../../utils/Icons';
 
 interface props {
 	labelId: string;
 	onChange: (e:ChangeEvent<HTMLInputElement>) => void;
 	value: string | number | null;
-	label: string,
+	label?: string,
     currency?:React.ReactNode,
 	required?: boolean;
     children?: React.ReactNode | undefined
@@ -27,10 +26,17 @@ const AmountInputField = ({
     errors,
 }: props) => {
     const [amountValue, setAmountValue] = useState<number|string>('')
-    useEffect(()=>{setAmountValue(numberToMoney(value))}, [value])
+    useEffect(()=>{
+        const val = numberToMoney(value)
+        setAmountValue(val === 0 || val === '0'?"":val)
+    }, [value])
 
     const handleAmountValue = (e:ChangeEvent<HTMLInputElement>) =>{
-        setAmountValue(numberToMoney(e.target.value))
+        // setAmountValue(numberToMoney(e.target.value))
+        const val = numberToMoney(e.target.value)
+
+        setAmountValue(val === 0 || val === '0'?"":val)
+
         e.target.value = e.target.value.replace(/[^0-9.]/g, '')
         onChange(e)        
     }
@@ -46,12 +52,11 @@ const AmountInputField = ({
             defaultValue={defaultValue}
             required={required}
             placeholder={placeholder}
-            
         />
         <span 
-            className='absolute end-2.5 font-bold text-sm top-[35px] p-1.5 transition-all '
+            className='absolute end-2 font-bold text-[10px] top-[30%] transition-all '
         >
-            {currency?currency:<RiyalFont />}
+            {currency?currency:'L.E'}
         </span>
     </div>
   )

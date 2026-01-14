@@ -4,17 +4,29 @@ const base_url = 'menus/'
 
 const requestsApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
+
+        // ------------------- menus -----------------//
         getMenuDetails: builder.query({
             query: () => ({
                 url: `${base_url}details/`,
             }),
             providesTags: ['menus']
         }),
+        
+        addMenuMeal: builder.mutation({
+            query: ({form}:{form:FormData}) => ({
+                url     : `${base_url}meals/add/`,
+                method  : 'POST',
+                body    : form
+            }),
+            invalidatesTags: ['menus']
+        }),
 
 
+        // -----------------------------------------------//
 
 
-
+        // ------------------- sections -----------------//
         getSectionsList: builder.query({
             query: () => ({
                 url: `${base_url}sections/`,
@@ -57,18 +69,24 @@ const requestsApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['menus']
         }),
 
+        // -----------------------------------------------//
+
+
     })
 })
 
 
 export const {
     useGetMenuDetailsQuery,
+    useAddMenuMealMutation,
 
+    
     useGetSectionsListQuery,
     useAddSectionMutation,
     useDeleteSectionMutation,
     useSwapSectionMutation,
-    useUpdateSectionMutation
+    useUpdateSectionMutation,
+
 
 } = requestsApiSlice
 

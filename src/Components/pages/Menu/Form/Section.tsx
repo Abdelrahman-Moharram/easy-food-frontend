@@ -51,6 +51,7 @@ const SectionForm = () => {
                     value={form?.name}
                     required
                     errors={formErrors?.name}
+                    placeholder='e.g. Desserts'
                 />
             </div>
             {/* <button type="submit" className="bg-neutral-900 text-white px-4 text-sm hover:bg-neutral-700 transition-colors">

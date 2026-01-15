@@ -12,12 +12,38 @@ const requestsApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['menus']
         }),
-        
+
         addMenuMeal: builder.mutation({
-            query: ({form}:{form:FormData}) => ({
-                url     : `${base_url}meals/add/`,
-                method  : 'POST',
-                body    : form
+            query: ({ form }: { form: FormData }) => ({
+                url: `${base_url}meals/add/`,
+                method: 'POST',
+                body: form
+            }),
+            invalidatesTags: ['menus']
+        }),
+
+        updateMenuMeal: builder.mutation({
+            query: ({ meal_id, form }: { meal_id: string, form: FormData }) => ({
+                url: `${base_url}meals/${meal_id}/edit/`,
+                method: 'PATCH',
+                body: form
+            }),
+            invalidatesTags: ['menus']
+        }),
+
+        deleteMenuMeal: builder.mutation({
+            query: ({ meal_id }: { meal_id: string }) => ({
+                url: `${base_url}meals/${meal_id}/delete/`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['menus']
+        }),
+
+        swapMenuMeal: builder.mutation({
+            query: ({ first_id, second_id }: { first_id: string, second_id: string }) => ({
+                url: `${base_url}meals/swap/`,
+                method: 'POST',
+                body: { first_id, second_id }
             }),
             invalidatesTags: ['menus']
         }),
@@ -79,8 +105,11 @@ const requestsApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetMenuDetailsQuery,
     useAddMenuMealMutation,
+    useUpdateMenuMealMutation,
+    useDeleteMenuMealMutation,
+    useSwapMenuMealMutation,
 
-    
+
     useGetSectionsListQuery,
     useAddSectionMutation,
     useDeleteSectionMutation,

@@ -1,4 +1,4 @@
-import { FormEvent } from "react"
+import React, { FormEvent } from "react"
 import { useAddMenuMealMutation, useGetSectionsListQuery } from "../../../../redux/api/menusApi"
 import Button from "../../../ui/Common/Button"
 import { Input, SelectInput, TextArea } from "../../../ui/Forms"
@@ -143,5 +143,6 @@ const MealsForm = () => {
     </div>
   )
 }
+
 
 export default MealsForm

@@ -31,6 +31,15 @@ const requestsApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: ['menus']
         }),
 
+        updateMenuMealPrice: builder.mutation({
+            query: ({ meal_id, price_id, form }: { meal_id: string, price_id: string, form: FormData }) => ({
+                url: `${base_url}meals/${meal_id}/${price_id}/edit/`,
+                method: 'PATCH',
+                body: form
+            }),
+            invalidatesTags: ['menus']
+        }),
+
         deleteMenuMeal: builder.mutation({
             query: ({ meal_id }: { meal_id: string }) => ({
                 url: `${base_url}meals/${meal_id}/delete/`,
@@ -106,6 +115,7 @@ export const {
     useGetMenuDetailsQuery,
     useAddMenuMealMutation,
     useUpdateMenuMealMutation,
+    useUpdateMenuMealPriceMutation,
     useDeleteMenuMealMutation,
     useSwapMenuMealMutation,
 

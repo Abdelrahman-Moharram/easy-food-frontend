@@ -112,7 +112,7 @@ const Professional  = () => {
 
 
 const ProfessionalMealItem = ({ meal, dragHandleProps }: { meal: any, dragHandleProps?: any }) => {
-    const { updateMealField, deleteMeal } = useMealActions(meal)
+    const { updateMealField, deleteMeal, updatePriceVariant } = useMealActions(meal)
 
     return (
         <div className="group mb-6 relative">
@@ -143,15 +143,49 @@ const ProfessionalMealItem = ({ meal, dragHandleProps }: { meal: any, dragHandle
                 {/* Dotted Leader Line */}
                 <span className="flex-grow border-b-2 border-dotted border-neutral-300 mx-2 mb-1 opacity-50"></span>
                 
-                {/* Price */}
-                <EditableField 
-                    value={meal?.price}
-                    onSave={(val) => updateMealField('price', val)}
-                    className="font-serif font-bold text-lg text-neutral-900 cursor-text hover:text-neutral-500 transition-colors"
-                    inputClassName="font-serif font-bold text-lg text-neutral-900 w-24 text-right bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none"
-                    placeholder="Price"
-                    type="number"
-                />
+                {/* Multi-Price or Single Price */}
+                {meal?.prices?.length > 0 ? (
+                    <div className="flex items-baseline justify-end flex-wrap">
+                        {meal.prices.map((price: any, idx: number) => (
+                            <div key={idx} className="flex items-baseline gap-1 group/price">
+                                <EditableField 
+                                    value={price?.name}
+                                    onSave={(val) => {
+                                        if (price.id) {
+                                            updatePriceVariant(price.id, 'name', val);
+                                        }
+                                    }}
+                                    className="text-[9px] uppercase font-sans tracking-widest text-neutral-400 cursor-text hover:text-neutral-600"
+                                    inputClassName="text-[9px] uppercase font-sans tracking-widest text-neutral-400 w-10 text-right bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none"
+                                    placeholder="Size"
+                                />
+                                <EditableField 
+                                    value={price?.price}
+                                    onSave={(val) => {
+                                        if (price.id) {
+                                            updatePriceVariant(price.id, 'price', val);
+                                        }
+                                    }}
+                                    className="font-serif font-bold text-xs text-neutral-900 cursor-text hover:text-neutral-500 transition-colors"
+                                    inputClassName="font-serif font-bold text-xs text-neutral-900 w-12 text-right bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none"
+                                    placeholder="Price"
+                                />
+                                {idx < meal.prices.length - 1 && (
+                                    <span className="text-[10px] text-neutral-300 font-serif ml-1">/</span>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <EditableField 
+                        value={meal?.price}
+                        onSave={(val) => updateMealField('price', val)}
+                        className="font-serif font-bold text-lg text-neutral-900 cursor-text hover:text-neutral-500 transition-colors"
+                        inputClassName="font-serif font-bold text-lg text-neutral-900 w-24 text-right bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none"
+                        placeholder="Price"
+                        // type="number"
+                    />
+                )}
             </div>
             
             {/* Description */}

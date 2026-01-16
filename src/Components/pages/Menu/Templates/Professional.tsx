@@ -135,7 +135,7 @@ const ProfessionalMealItem = ({ meal, dragHandleProps }: { meal: any, dragHandle
                 <EditableField 
                     value={meal?.name}
                     onSave={(val) => updateMealField('name', val)}
-                    className="font-bold text-neutral-800 text-lg whitespace-nowrap cursor-pointer hover:text-neutral-500 transition-colors"
+                    className="font-bold text-neutral-800 text-lg whitespace-nowrap cursor-text hover:text-neutral-500 transition-colors"
                     inputClassName="font-bold text-neutral-800 text-lg w-full bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none"
                     placeholder="Meal Name"
                 />
@@ -147,7 +147,7 @@ const ProfessionalMealItem = ({ meal, dragHandleProps }: { meal: any, dragHandle
                 <EditableField 
                     value={meal?.price}
                     onSave={(val) => updateMealField('price', val)}
-                    className="font-serif font-bold text-lg text-neutral-900 cursor-pointer hover:text-neutral-500 transition-colors"
+                    className="font-serif font-bold text-lg text-neutral-900 cursor-text hover:text-neutral-500 transition-colors"
                     inputClassName="font-serif font-bold text-lg text-neutral-900 w-24 text-right bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none"
                     placeholder="Price"
                     type="number"
@@ -159,7 +159,7 @@ const ProfessionalMealItem = ({ meal, dragHandleProps }: { meal: any, dragHandle
             <EditableField 
                 value={meal?.description}
                 onSave={(val) => updateMealField('description', val)}
-                className="text-sm text-neutral-500 italic mt-1 font-serif cursor-pointer hover:text-neutral-700 transition-colors block"
+                className="text-sm text-neutral-500 italic mt-1 font-serif cursor-text hover:text-neutral-700 transition-colors block"
                 inputClassName="text-sm text-neutral-500 italic mt-1 font-serif w-full bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none resize-none"
                 placeholder="Description"
                 as="textarea"

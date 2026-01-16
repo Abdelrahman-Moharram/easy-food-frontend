@@ -118,7 +118,7 @@ const OrderSections = () => {
                               />
                             :
                               <span 
-                                className="font-semibold text-slate-700 cursor-text hover:text-blue-600 transition-colors"
+                                className="font-semibold text-color/75 cursor-text hover:text-neutral-500 transition-colors"
                                 onClick={() => selectEditSection(section)}
                               >
                                 {section?.name}

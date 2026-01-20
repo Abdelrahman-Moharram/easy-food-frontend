@@ -3,7 +3,7 @@ import React from 'react'
 import EditableField from '../../../ui/Forms/EditableField'
 import { useMealActions } from '../Hooks/useMealActions'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
-import { GripVertical, Trash2 } from 'lucide-react'
+import { GripVertical, Trash2, Plus, X } from 'lucide-react'
 
 const Professional  = () => {
   const {data:menu}      = useGetMenuDetailsQuery({refetchOnMountOrArgChange:true, refetchOnReconnect:true})
@@ -112,7 +112,7 @@ const Professional  = () => {
 
 
 const ProfessionalMealItem = ({ meal, dragHandleProps }: { meal: any, dragHandleProps?: any }) => {
-    const { updateMealField, deleteMeal, updatePriceVariant } = useMealActions(meal)
+    const { updateMealField, deleteMeal, updatePriceVariant, addPriceVariant, deletePriceVariant } = useMealActions(meal)
 
     return (
         <div className="group mb-6 relative">
@@ -145,14 +145,19 @@ const ProfessionalMealItem = ({ meal, dragHandleProps }: { meal: any, dragHandle
                 
                 {/* Multi-Price or Single Price */}
                 {meal?.prices?.length > 0 ? (
-                    <div className="flex items-baseline justify-end flex-wrap">
+                    <div className="flex items-baseline justify-end flex-wrap gap-y-2">
                         {meal.prices.map((price: any, idx: number) => (
-                            <div key={idx} className="flex items-baseline gap-1 group/price">
+                            <div key={idx} className="flex items-baseline gap-1 group/price relative">
                                 <EditableField 
                                     value={price?.name}
                                     onSave={(val) => {
                                         if (price.id) {
                                             updatePriceVariant(price.id, 'name', val);
+                                        } else {
+                                            // Handle case where it doesn't have an ID yet (newly added)
+                                            const newPrices = [...meal.prices];
+                                            newPrices[idx] = { ...newPrices[idx], name: val };
+                                            updateMealField('prices', newPrices);
                                         }
                                     }}
                                     className="text-[9px] uppercase font-sans tracking-widest text-neutral-400 cursor-text hover:text-neutral-600"
@@ -164,27 +169,49 @@ const ProfessionalMealItem = ({ meal, dragHandleProps }: { meal: any, dragHandle
                                     onSave={(val) => {
                                         if (price.id) {
                                             updatePriceVariant(price.id, 'price', val);
+                                        } else {
+                                            // Handle case where it doesn't have an ID yet (newly added)
+                                            const newPrices = [...meal.prices];
+                                            newPrices[idx] = { ...newPrices[idx], price: val };
+                                            updateMealField('prices', newPrices);
                                         }
                                     }}
                                     className="font-serif font-bold text-xs text-neutral-900 cursor-text hover:text-neutral-500 transition-colors"
                                     inputClassName="font-serif font-bold text-xs text-neutral-900 w-12 text-right bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none"
                                     placeholder="Price"
                                 />
+                                
+                                {/* Individual Price Delete Button */}
+                                <button 
+                                    onClick={() => deletePriceVariant(idx)}
+                                    className="opacity-0 group-hover/price:opacity-100 transition-opacity ml-1 text-neutral-300 hover:text-red-500"
+                                    title="Remove Price"
+                                >
+                                    <X size={10} />
+                                </button>
+
                                 {idx < meal.prices.length - 1 && (
                                     <span className="text-[10px] text-neutral-300 font-serif ml-1">/</span>
                                 )}
                             </div>
                         ))}
+                        
+                        {/* Add Price Button */}
+                        <button 
+                            onClick={addPriceVariant}
+                            className="ml-2 p-1 rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 transition-colors"
+                            title="Add Price Option"
+                        >
+                            <Plus size={12} />
+                        </button>
                     </div>
                 ) : (
-                    <EditableField 
-                        value={meal?.price}
-                        onSave={(val) => updateMealField('price', val)}
-                        className="font-serif font-bold text-lg text-neutral-900 cursor-text hover:text-neutral-500 transition-colors"
-                        inputClassName="font-serif font-bold text-lg text-neutral-900 w-24 text-right bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none"
-                        placeholder="Price"
-                        // type="number"
-                    />
+                    <button 
+                        onClick={addPriceVariant}
+                        className="text-[10px] uppercase font-sans tracking-widest text-neutral-400 hover:text-neutral-800 flex items-center gap-1"
+                    >
+                        <Plus size={10} /> Add Price
+                    </button>
                 )}
             </div>
             

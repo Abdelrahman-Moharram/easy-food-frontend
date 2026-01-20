@@ -19,11 +19,20 @@ export const useMealActions = (meal: any) => {
     }
 
     const updatePriceVariant = (price_id: string, field: string, value: any) => {
-        const formData = new FormData()
-        // Assuming the API expects {name: "some name"} or {price: 123}
-        formData.append(field, value)
+        const newPrices = meal.prices.map((p: any) =>
+            p.id === price_id ? { ...p, [field]: value } : p
+        )
+        updateMealField('prices', newPrices)
+    }
 
-        updateMealPrice({ meal_id: meal.id, price_id, form: formData })
+    const addPriceVariant = () => {
+        const newPrices = [...(meal.prices || []), { name: 'Size', price: 0 }]
+        updateMealField('prices', newPrices)
+    }
+
+    const deletePriceVariant = (index: number) => {
+        const newPrices = meal.prices.filter((_: any, i: number) => i !== index)
+        updateMealField('prices', newPrices)
     }
 
     const deleteMeal = () => {
@@ -37,6 +46,8 @@ export const useMealActions = (meal: any) => {
     return {
         updateMealField,
         updatePriceVariant,
+        addPriceVariant,
+        deletePriceVariant,
         deleteMeal,
         swapMeal
     }

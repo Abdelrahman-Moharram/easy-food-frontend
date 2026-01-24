@@ -17,6 +17,7 @@ import RolesSettings from './Pages/Settings/roles/index.tsx'
 import { IsAllowedPermissionOrRedirect } from './Pages/Guards/IsAllowedPermission.tsx'
 import Menu from './Pages/Menu/index.tsx';
 import Branches from './Pages/Branches/index.tsx';
+import Orders from './Pages/Orders/index.tsx';
 
 
 const router = createBrowserRouter ([
@@ -41,6 +42,10 @@ const router = createBrowserRouter ([
       {
         path:'/menus',
         element:<Menu />
+      },
+      {
+        path:'/orders',
+        element:<Orders />
       },
   
       {

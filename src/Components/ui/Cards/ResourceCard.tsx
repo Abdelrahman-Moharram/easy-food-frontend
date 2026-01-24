@@ -9,7 +9,7 @@ interface ResourceCardProps {
   status?: 'active' | 'inactive';
   details: {
     icon: React.ReactNode;
-    text: string;
+    text: React.ReactNode;
   }[];
   actions?: {
     onEdit?: (id: string) => void;
@@ -56,7 +56,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ id, name, image, status, de
           {details.map((detail, index) => (
             <div key={index} className="flex items-start gap-3">
               <span className="text-primary mt-1 flex-shrink-0">{detail.icon}</span>
-              <span className="text-sm line-clamp-2">{detail.text}</span>
+              <span className="text-sm">{detail.text}</span>
             </div>
           ))}
         </div>

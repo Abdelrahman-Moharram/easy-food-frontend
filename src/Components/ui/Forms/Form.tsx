@@ -7,7 +7,7 @@ import Button from '../Common/Button';
 interface Config {
 	labelText: string;
 	labelId: string;
-	type: string;
+	type: 'text' | 'password' | 'number';
 	value: string;
 	placeholder?: string;
 	link?: {

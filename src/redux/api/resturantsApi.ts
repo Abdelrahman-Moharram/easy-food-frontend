@@ -2,32 +2,25 @@ import { apiSlice } from "../services/apiSlice";
 
 const base_url = 'resturants/'
 
-const requestsApiSlice = apiSlice.injectEndpoints({
+const resturantsApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder)=>({
-        getRequestsList: builder.query({
+        getResturantBranchesByCity: builder.query({
             query:()=>({
-                url:base_url+'',
+                url:base_url+'branches/',
             }),
             providesTags:['resturants']
         }),
         
         // ------------------------------------------------ //
 
-        sendRequestsList: builder.mutation({
-            query:({form}:{form:FormData})=>({
-                url:base_url+'send/',
-                method:'post',
-                body:form
-            }),
-        }),
+        
 
     }) 
 })
 
 
 export const {
-    useGetRequestsListQuery,
-    useSendRequestsListMutation
+    useGetResturantBranchesByCityQuery
 
-} = requestsApiSlice
+} = resturantsApiSlice
 

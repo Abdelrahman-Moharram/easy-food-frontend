@@ -9,7 +9,7 @@ export default function LoginForm() {
 		{
 			labelText:t("Username"),
 			labelId: 'username',
-			type: 'username',
+			type: 'text',
 			value: username,
 			required: true,
 			placeholder:'username'

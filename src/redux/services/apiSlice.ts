@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type {
-	BaseQueryFn,
-	FetchArgs,
-	FetchBaseQueryError,
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 import { setLogout } from '../features/authSlice';
 import { Mutex } from 'async-mutex';
@@ -11,8 +11,8 @@ const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${import.meta.env.VITE_BASE_URL}/api/`,
-  credentials: 'include', 
-  headers:{'Accept-Language': localStorage.getItem("lang") || 'ar'}
+  credentials: 'include',
+  headers: { 'Accept-Language': localStorage.getItem("lang") || 'ar' }
 });
 
 
@@ -35,13 +35,13 @@ const baseQueryWithReauth: BaseQueryFn<
           api,
           extraOptions
         );
-        
+
         if (refreshResult.data) {
           // ✅ أعد تنفيذ الطلب الأصلي بعد التجديد
           result = await baseQuery(args, api, extraOptions);
         } else {
           api.dispatch(setLogout());
-          
+
         }
       } finally {
         release();
@@ -68,6 +68,7 @@ export const apiSlice = createApi({
 
     'resturants',
     'menus',
+    'orders',
   ],
   endpoints: () => ({}),
 });

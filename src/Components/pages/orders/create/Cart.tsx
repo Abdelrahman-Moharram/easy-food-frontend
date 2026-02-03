@@ -1,0 +1,72 @@
+import { CheckCircle2, Loader2, ShoppingCart } from 'lucide-react'
+import { useGetCartQuery } from '../../../../redux/api/ordersApi';
+import CartItem from './CartItem';
+
+
+
+
+const Cart = () => {
+    const { data: cartItems = [], isLoading } = useGetCartQuery();
+    const total = cartItems.reduce((sum: number, item: any) => sum + (Number(item?.size?.price) * item?.count), 0);
+    
+  return (
+    <div className="w-full lg:w-96">
+        <div className="bg-white rounded-3xl shadow-xl shadow-neutral-200/50 border border-neutral-100 p-6 sticky top-10">
+        <h3 className="text-xl font-bold text-neutral-800 mb-6 flex items-center gap-2">
+            <ShoppingCart size={24} className="text-primary" />
+            Your Order
+        </h3>
+
+        {!cartItems.length ? 
+            <div className="py-12 text-center">
+                <div className="bg-neutral-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <ShoppingCart size={24} className="text-neutral-300" />
+                </div>
+                <p className="text-neutral-400">Cart is empty</p>
+            </div>
+        : 
+            <>
+                <div className="space-y-4 max-h-[50vh] overflow-y-auto mb-6 pr-2 custom-scrollbar">
+                    {cartItems.map((item: any) => (
+                        <CartItem 
+                            item={item}
+                        />
+                    ))}
+                </div>
+
+                <div className="space-y-4 pt-6 border-t border-dashed border-neutral-200">
+                    <div className="flex justify-between text-neutral-500">
+                        <span>Subtotal</span>
+                        <span>${total}</span>
+                    </div>
+                    <div className="flex justify-between text-lg font-black text-neutral-900 pt-2">
+                        <span>Total</span>
+                        <span className="text-primary">${total}</span>
+                    </div>
+                    
+                    <button 
+                        // onClick={handlePlaceOrder}
+                        disabled={isLoading}
+                        className="w-full bg-primary text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-primary/90 transition-all active:scale-[0.98] mt-4 shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                        {isLoading ? (
+                            <>
+                                Processing...
+                                <Loader2 size={20} className="animate-spin" />
+                            </>
+                        ) : (
+                            <>
+                                Place Order
+                                <CheckCircle2 size={20} />
+                            </>
+                        )}
+                    </button>
+                </div>
+            </>
+        }
+        </div>
+    </div>
+  )
+}
+
+export default Cart

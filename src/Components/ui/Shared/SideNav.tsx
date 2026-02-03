@@ -5,6 +5,7 @@ import SideNavDropDownItem from "./SideNavDropDownItem";
 import { useTranslation } from "react-i18next";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { FaCodeBranch } from "react-icons/fa";
+import { GiNotebook } from "react-icons/gi";
 
 
 
@@ -12,8 +13,7 @@ import { FaCodeBranch } from "react-icons/fa";
 
 export default function SideNav() {
     
-    const { t }        = useTranslation();
-
+    const { t }        = useTranslation()
     const sideNavLinks = [
         {
             title:t("Home Page"),
@@ -29,6 +29,11 @@ export default function SideNav() {
             title:t("Menu"),
             icon:<BiSolidFoodMenu />,
             path:'/menus',
+        },              
+        {
+            title:t("Order"),
+            icon:<GiNotebook />,
+            path:'/orders',
         },              
     ]
     

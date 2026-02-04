@@ -12,6 +12,13 @@ const requestsApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['menus']
         }),
+        
+        getValidMenuDetails: builder.query({
+            query: () => ({
+                url: `${base_url}details/valid/`,
+            }),
+            providesTags: ['menus']
+        }),
 
         addMenuMeal: builder.mutation({
             query: ({ form }: { form: FormData }) => ({
@@ -113,6 +120,7 @@ const requestsApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetMenuDetailsQuery,
+    useGetValidMenuDetailsQuery,
     useAddMenuMealMutation,
     useUpdateMenuMealMutation,
     useUpdateMenuMealPriceMutation,

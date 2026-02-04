@@ -3,6 +3,7 @@ import { PageHeader } from '../../Components/ui/Shared';
 import { ResourceCard } from '../../Components/ui/Cards';
 import { IoLocationOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
 import { useGetResturantBranchesByCityQuery } from '../../redux/api/resturantsApi';
+import { Loading } from '../../Components/ui/Common/ImageSkeleton';
 
 interface City {
   id: number;
@@ -50,9 +51,7 @@ const Branches = () => {
         />
         
         {isLoading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          </div>
+          <Loading />
         ) : (
           <div className="space-y-12 mt-8">
             {citiesData.map((cityGroup) => (

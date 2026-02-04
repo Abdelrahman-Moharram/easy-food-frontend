@@ -64,13 +64,13 @@ const CartItem = ({item}:{item:CartItemType}) => {
             </div>
             <div className="mt-2">
                 <EditableField 
-                    value={item?.comment}
-                    onSave={(val) => updateMealComment(val)}
-                    className="text-xs text-neutral-500 mt-1 font-serif cursor-text hover:text-neutral-700 transition-colors block"
-                    inputClassName="text-xs text-neutral-500 mt-1 font-serif w-full bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none resize-none"
-                    placeholder="Comment"
-                    as="textarea"
-                    rows={2}
+                  value={item?.comment}
+                  onSave={(val) => updateMealComment(val)}
+                  className="text-xs text-neutral-500 mt-1 font-serif cursor-text hover:text-neutral-700 transition-colors block"
+                  inputClassName="text-xs text-neutral-500 mt-1 font-serif w-full bg-transparent border-b border-neutral-300 focus:border-neutral-800 outline-none resize-none"
+                  placeholder="Comment"
+                  as="textarea"
+                  rows={2}
                 />
             </div>
         </div>

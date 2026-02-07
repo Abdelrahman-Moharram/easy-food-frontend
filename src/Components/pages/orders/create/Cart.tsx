@@ -1,6 +1,8 @@
-import { CheckCircle2, Loader2, ShoppingCart } from 'lucide-react'
+import { CheckCircle2, ShoppingCart } from 'lucide-react'
 import { useGetCartQuery } from '../../../../redux/api/ordersApi';
 import CartItem from './CartItem';
+import Button from '../../../ui/Common/Button';
+import { CurrencyIcon } from '../../../utils/Icons';
 
 
 
@@ -37,30 +39,24 @@ const Cart = () => {
                 <div className="space-y-4 pt-6 border-t border-dashed border-neutral-200">
                     <div className="flex justify-between text-neutral-500">
                         <span>Subtotal</span>
-                        <span>${total}</span>
+                        <span><CurrencyIcon />{total}</span>
                     </div>
                     <div className="flex justify-between text-lg font-black text-neutral-900 pt-2">
                         <span>Total</span>
-                        <span className="text-primary">${total}</span>
+                        <span className="text-primary">{total}</span>
                     </div>
                     
-                    <button 
-                        // onClick={handlePlaceOrder}
+                    
+
+                    <Button 
+                        title={'Place Order'}
+                        variant='primary'
                         disabled={isLoading}
-                        className="w-full bg-primary text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-primary/90 transition-all active:scale-[0.98] mt-4 shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
-                    >
-                        {isLoading ? (
-                            <>
-                                Processing...
-                                <Loader2 size={20} className="animate-spin" />
-                            </>
-                        ) : (
-                            <>
-                                Place Order
-                                <CheckCircle2 size={20} />
-                            </>
-                        )}
-                    </button>
+                        isLoading={isLoading}
+                        fontBold
+                        icon={<CheckCircle2 size={20} />}
+                        className={'shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed py-4'}
+                    />
                 </div>
             </>
         }

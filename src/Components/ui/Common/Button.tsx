@@ -69,13 +69,13 @@ interface LinkProps{
     <button
         type={submit? "submit" : "button" }
         onClick={onClick}
-        className={`w-full py-1 rounded-lg transition-all duration-100 shadow-md ${getVariant({variant, disabled})} ${className}  ${fontBold?'font-bold':'font-medium'}`}
+        className={`w-full py-1 rounded-lg duration-100 shadow-md hover:bg-primary/90 transition-all active:scale-[0.98] ${getVariant({variant, disabled})} ${className}  ${fontBold?'font-bold':'font-medium'}`}
         disabled={disabled}
     >
-      <div className='flex justify-center items-center content-center gap-1 text-center leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'>
+      <div className='flex justify-center items-center content-center  gap-3 text-center leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'>
       {
         isLoading?
-          <Spinner md />
+          <Spinner sm />
         : 
           iconRight?
             <>

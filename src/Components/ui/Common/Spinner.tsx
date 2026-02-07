@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { PiSpinner } from 'react-icons/pi';
+import { Loader2 } from 'lucide-react';
 
 interface Props {
 	sm?: boolean;
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Spinner({ sm, md, lg }: Props) {
-	const className = cn('animate-spin text-white fill-white mr-2', {
+	const className = cn('animate-spin ', {
 		'w-4 h-4': sm,
 		'w-6 h-6': md,
 		'w-8 h-8': lg,
@@ -16,7 +16,7 @@ export default function Spinner({ sm, md, lg }: Props) {
 
 	return (
 		<div role='status'>
-			<PiSpinner className={className} />
+			<Loader2 className={className} />
 			<span className='sr-only'>Loading...</span>
 		</div>
 	);

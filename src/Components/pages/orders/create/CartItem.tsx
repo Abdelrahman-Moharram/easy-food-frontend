@@ -1,6 +1,7 @@
 import { useRemoveFromCartMutation, useUpdateCartItemMutation } from '../../../../redux/api/ordersApi'
 import { showMessage } from '../../../ui/Common/ShowMessage'
 import EditableField from '../../../ui/Forms/EditableField'
+import { CurrencyIcon } from '../../../utils/Icons'
 import { CartItemType } from './Types'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 
@@ -46,6 +47,7 @@ const CartItem = ({item}:{item:CartItemType}) => {
                     
                     <button
                         onClick={() => updateCount(item?.count-1)}
+                        disabled={item?.count < 2}
                         className="p-1 hover:bg-neutral-50 text-neutral-400 rounded-md transition-colors"
                     >
                         <Minus size={14} />
@@ -81,7 +83,7 @@ const CartItem = ({item}:{item:CartItemType}) => {
             >
                 <Trash2 size={16} />
             </button>
-        <p className="font-bold text-neutral-800">${Number(item?.size.price) * item?.count}</p>
+            <p className="font-bold text-neutral-800"> <CurrencyIcon /> {Number(item?.size.price) * item?.count}</p>
         </div>
     </div>
   )

@@ -2,8 +2,8 @@ import React from 'react'
 import EmptyContent from '../Common/EmptyContent';
 import { beautify_date, numberToMoney } from '../../utils/helper';
 import TableSkeleton from './TableSkeleton';
-import { RiyalFont } from '../../utils/Icons';
 import { Tooltip } from "react-tooltip";
+import { CurrencyIcon } from '../../utils/Icons';
 
 interface Props{
     data
@@ -66,7 +66,7 @@ const DataTable = ({options, startOptions, data, isLoading, emptyLinkHref, amoun
         const rendered_row = []
         for(const cell in row){
             if(typeof row === 'object' && Object.keys(row).includes(cell) && (!fnKeys || !fnKeys.includes(cell))){
-                rendered_row.push(<td className="border border-gray-200 whitespace-nowrap px-4 py-2 ">{amounts?.includes(cell)?<>{numberToMoney(row[cell])}<RiyalFont height='18' width='12' /></> : dates?.includes(cell)?beautify_date(row[cell]): showCellWithOverLay(row[cell]) ||<span className='text-center block'>-</span>}</td>)
+                rendered_row.push(<td className="border border-gray-200 whitespace-nowrap px-4 py-2 ">{amounts?.includes(cell)?<>{numberToMoney(row[cell])}<CurrencyIcon /></> : dates?.includes(cell)?beautify_date(row[cell]): showCellWithOverLay(row[cell]) ||<span className='text-center block'>-</span>}</td>)
             }
         }
         return rendered_row

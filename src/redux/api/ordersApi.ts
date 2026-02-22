@@ -11,6 +11,7 @@ const ordersApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['orders']
         }),
+        
 
         addToCart: builder.mutation({
             query: ({form}:{form:FormData}) => ({
@@ -39,9 +40,10 @@ const ordersApiSlice = apiSlice.injectEndpoints({
         }),
 
         createOrder: builder.mutation({
-            query: () => ({
-                url: `${base_url}order/create/`,
-                method: 'POST',
+            query: ({form}:{form:FormData}) => ({
+                url     : `${base_url}create/`,
+                method  : 'POST',
+                body    : form
             }),
             invalidatesTags: ['orders']
         }),

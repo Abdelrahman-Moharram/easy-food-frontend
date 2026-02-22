@@ -130,6 +130,7 @@ export const apiSlice = createApi({
     'resturants',
     'menus',
     'orders',
+    'payments'
   ],
   endpoints: () => ({}),
 });

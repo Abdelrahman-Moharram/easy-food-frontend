@@ -11,7 +11,7 @@ const Login = () => {
         <div className="absolute inset-0">
           <img 
             src="/login-bg.avif" 
-            alt="Easy Food Ambience" 
+            alt="Food Zone Ambience" 
             className="w-full h-full object-cover opacity-90"
             onError={(e) => {
               // Fallback gradient if image is missing
@@ -25,7 +25,7 @@ const Login = () => {
 
         {/* Branding / Text */}
         <div className="relative z-10 flex flex-col justify-end p-12 w-full text-white">
-          <h1 className="text-5xl font-bold mb-4 drop-shadow-lg">Easy Food</h1>
+          <h1 className="text-5xl font-bold mb-4 drop-shadow-lg">Food Zone</h1>
           <p className="text-xl max-w-md opacity-90 drop-shadow-md leading-relaxed">
             {t("Experience the best food delivery service. Fresh, fast, and delicious.")}
           </p>
@@ -52,7 +52,7 @@ const Login = () => {
 
           <div className="mt-8 text-center">
              <p className="text-xs text-gray-400 dark:text-gray-500">
-                &copy; 2024 Easy Food. All rights reserved.
+                &copy; 2024 Food Zone. All rights reserved.
              </p>
           </div>
         </div>

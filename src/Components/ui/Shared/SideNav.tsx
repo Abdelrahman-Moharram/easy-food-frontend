@@ -43,7 +43,7 @@ export default function SideNav() {
                 <ul className="h-[90%] overflow-y-auto overflow-x-hidden py-5 px-1 space-y-5 ">
                     {
                         sideNavLinks?.map(item=>(
-                            <li id={item.title}>
+                            <li id={item.title} key={item.path}>
                                 <SideNavDropDownItem 
                                     title={item?.title}
                                     icon={item.icon}

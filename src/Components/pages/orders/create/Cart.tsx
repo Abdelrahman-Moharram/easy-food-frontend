@@ -1,5 +1,4 @@
 import { CheckCircle2, ShoppingCart } from 'lucide-react'
-import { useCreateOrderMutation, useGetCartQuery } from '../../../../redux/api/ordersApi';
 import CartItem from './CartItem';
 import Button from '../../../ui/Common/Button';
 import { CurrencyIcon } from '../../../utils/Icons';
@@ -7,6 +6,8 @@ import { FormEvent } from 'react';
 import { showMessage } from '../../../ui/Common/ShowMessage';
 import SelectPaymentMethod from './SelectPaymentMethod';
 import useForm from '../../../ui/Hooks/Forms/useForm';
+import { useCreateOrderMutation } from '../../../../redux/api/ordersApi';
+import { useGetCartQuery } from '../../../../redux/api/cartApi';
 
 
 
@@ -21,8 +22,6 @@ const Cart = () => {
         onChange,
         getFormData
     } = useForm({payment_method:''})
-
-    console.log(form);
     
 
     const onSubmit = (e:FormEvent) =>{
@@ -58,6 +57,7 @@ const Cart = () => {
                     {cartItems.map((item: any) => (
                         <CartItem 
                             item={item}
+                            key={item.id}
                         />
                     ))}
                 </div>

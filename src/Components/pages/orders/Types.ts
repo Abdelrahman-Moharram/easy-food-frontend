@@ -15,3 +15,9 @@ export interface CartItemType {
   size        : MealSizeType,
   meal        : MealType,
 }
+
+
+export interface OrderType{
+  id          : string,
+  
+}

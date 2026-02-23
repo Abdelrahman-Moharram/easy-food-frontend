@@ -29,12 +29,31 @@ export const numberToMoney = (value:number|string|null) =>{
     return decimalPart !== undefined ? `${formattedInteger}.${decimalPart}` : formattedInteger;
 }
 
-export const beautify_date = (date: string) => {
+export const beautify_date = (date: string, showTime: boolean = false) => {
+    if (!date) return ''
+
     const newDate = new Date(date)
-    const day     = String(newDate.getDate()).padStart(2, "0")
-    const month   = String(newDate.getMonth() + 1).padStart(2, "0")
-    
-    return `${day}-${month}-${newDate.getFullYear()}`
+    if (!(newDate instanceof Date) || isNaN(newDate.getTime())) return date
+    const day   = String(newDate.getDate()).padStart(2, "0")
+    const month = String(newDate.getMonth() + 1).padStart(2, "0")
+    const year  = newDate.getFullYear()
+
+    const hours   = newDate.getHours()
+    const minutes = newDate.getMinutes()
+    // const seconds = newDate.getSeconds()
+
+    let formattedDate = ` ${year}-${month}-${day}`
+
+    if (showTime && !(hours === 0)) {
+        const ampm = hours >= 12 ? 'PM' : 'AM'
+        const hour12 = hours % 12 === 0 ? 12 : hours % 12
+        const h = String(hour12).padStart(2, "0")
+        const m = String(minutes).padStart(2, "0")
+
+        formattedDate = ` (  ${h}:${m} ${ampm} )   ` + formattedDate
+    }
+
+    return formattedDate
 }
 
 

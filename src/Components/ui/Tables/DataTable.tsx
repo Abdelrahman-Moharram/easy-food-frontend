@@ -1,145 +1,240 @@
-import React from 'react'
-import EmptyContent from '../Common/EmptyContent';
-import { beautify_date, numberToMoney } from '../../utils/helper';
-import TableSkeleton from './TableSkeleton';
+import React, { useEffect, useMemo, useState } from "react";
 import { Tooltip } from "react-tooltip";
-import { CurrencyIcon } from '../../utils/Icons';
+import EmptyData from "../Common/EmptyData";
+import { Loading } from "../Common/ImageSkeleton";
+import { numberToMoney } from "../../utils/NumberToMoney";
+import { beautify_date } from "../../utils/helper";
 
-interface Props{
-    data
-    options?:(row)=>React.ReactNode
-    isLoading:boolean
-    isOptions?:boolean,
-    emptyLinkHref: string
-    emptyText: string,
-    startOptions?:(row)=>React.ReactNode,
-    fnKeys:string[]
-    optionsHeader?:string
-    startOptionsHeader?:string,
-    amounts?:string[],
-    dates?:string[],
-    showCounter?:boolean
+interface DataTableProps<T extends Record<string, any>> {
+  data: T[];
+  isLoading: boolean;
+
+  /** columns to hide (like ids, fn, etc.) */
+  fnKeys?: string[];
+
+  /** columns whose values should be formatted as amounts */
+  amounts?: string[];
+
+  /** columns whose values should be formatted as dates */
+  dates?: string[];
+
+  /** Show # counter column */
+  showCounter?: boolean;
+  selectCols?: boolean
+
+  /** Optional start / end cell renderers */
+  startOptions?: (row: T) => React.ReactNode;
+  startOptionsHeader?: string;
+
+  options?: (row: T) => React.ReactNode;
+  optionsHeader?: string;
+
+  /** Empty content props */
+  emptyText?: string;
+
+  colLengthLimit?:number
 }
 
-
-const DataTable = ({options, startOptions, data, isLoading, emptyLinkHref, amounts, dates, fnKeys, isOptions=false, optionsHeader,  startOptionsHeader, showCounter}:Props) => {
-    const getHeaders = () =>{
-        const cols = []
-        if(startOptions?.length){
-            cols.push(<th key={0}>{startOptionsHeader}</th>)
-        }
-        if (data?.length > 0){
-            for(const i in data[0]){
-                if(!fnKeys || !fnKeys.includes(i))
-                    cols.push(i)
-            }
-        }
-        if(options?.length){
-            cols.push(<th key={-1}>{optionsHeader}</th>)
-        }
-        return cols
-    }
-    
-    const showCellWithOverLay = (cellContent: any) => {
-                
-        if(typeof(cellContent) !== 'string' || cellContent.length < 70)
-            return cellContent
-        
-        const modifiedValue = cellContent.slice(0, 70) + " ...";
-        const cellId        = String(Math.random()*1000)
-
-        return (
-            <div>
-                <div
-                    data-tooltip-id={cellId}
-                    data-tooltip-content={cellContent}
-                    className="cursor-default large-table-cell"
-                >
-                    {modifiedValue}
-                </div>
-                <Tooltip id={cellId} variant="dark" />
-            </div>
-        );
-    };
-    
-    const renderRow = ({row}:{row})=>{
-        const rendered_row = []
-        for(const cell in row){
-            if(typeof row === 'object' && Object.keys(row).includes(cell) && (!fnKeys || !fnKeys.includes(cell))){
-                rendered_row.push(<td className="border border-gray-200 whitespace-nowrap px-4 py-2 ">{amounts?.includes(cell)?<>{numberToMoney(row[cell])}<CurrencyIcon /></> : dates?.includes(cell)?beautify_date(row[cell]): showCellWithOverLay(row[cell]) ||<span className='text-center block'>-</span>}</td>)
-            }
-        }
-        return rendered_row
-    }
-    
+/** A simple dropdown for column selection */
+const ColumnSelector: React.FC<{
+  allColumns: string[];
+  selected: string[];
+  onToggle: (col: string) => void;
+}> = ({ allColumns, selected, onToggle }) => {
   return (
-    <div className="overflow-x-auto overflow-y-hidden  rounded-lg">
-        {
-            isLoading?
-                <TableSkeleton />
-            :
-                data?.length?
-                    <table className="w-full text-center">
-                          <thead className=''>
-
-                            <tr className='  text-center bg-[#0b3b6e] text-white'>
-                                {
-                                    showCounter?
-                                        <th className='py-2 mx-2'></th>
-                                    :null
-                                }
-                                {
-                                    getHeaders()?.map((col, idx)=>(
-                                        <th key={idx} className="border border-gray-200 whitespace-nowrap px-4 py-4 font-bold">{col}</th>
-                                    ))
-                                }
-                            </tr>
-                        </thead>
-
-                        <tbody className="divide-y divide-gray-200">
-                            {
-                                data?.map((row, index:number)=>(
-                                        <tr key={index+"-"+String(Math.random()*200)}>
-                                            {
-                                                isOptions && startOptions?
-                                                    <td className="border border-gray-200 whitespace-nowrap px-4 py-2">
-                                                        {startOptions(row)}
-                                                    </td>
-                                                :null
-                                            }
-                                            {
-                                                showCounter?
-                                                    <td className='border border-gray-200  mx-2'>{index+1}</td>
-                                                :null
-                                            }
-                                            {
-                                                renderRow({row})
-                                            }
-                                            {
-                                                isOptions && options?
-                                                    <td className="border border-gray-200 whitespace-nowrap px-4 py-2">
-                                                        <div className=" flex justify-center">
-                                                            {options(row)}
-                                                        </div>
-                                                    </td>
-                                                :null
-                                            }
-                                        </tr>
-                                    )
-                                )
-                            }
-                        </tbody>
-                    </table>
-                :
-                <div className="flex justify-center">
-                    <EmptyContent 
-                        href={emptyLinkHref}
-                        // title={emptyText}
-                    />
-                </div>
-        }
+    <div className="inline-block relative">
+      <details className="cursor-pointer select-none">
+        <summary className="px-3 py-1 bg-gray-100 border rounded text-sm">
+          Select Columns
+        </summary>
+        <div className="absolute mt-1 p-2 bg-white border rounded shadow w-48 z-10">
+          {allColumns.map((col) => (
+            <label key={col} className="flex items-center text-sm space-x-2 py-1">
+              <input
+                type="checkbox"
+                checked={selected.includes(col)}
+                onChange={() => onToggle(col)}
+              />
+              <span>{col}</span>
+            </label>
+          ))}
+        </div>
+      </details>
     </div>
-  )
+  );
+};
+
+function DataTable<T extends Record<string, any>>({
+  data,
+  isLoading,
+  fnKeys = [],
+  amounts = [],
+  dates = ['date', 'DATE', 'تاريخ','created','Created'],
+  showCounter = false,
+  startOptions,
+  startOptionsHeader,
+  options,
+  optionsHeader,
+  emptyText,
+  selectCols=false,
+  colLengthLimit=70
+}: DataTableProps<T>) {
+  /** --- derive table columns --- */
+
+  const allCols = useMemo(() => {
+    if (!data?.length) return [];
+    return Object.keys(data[0]).filter((c) => !fnKeys.includes(c));
+  }, [data, fnKeys]);
+
+  
+
+
+  const toggleCol = (col: string) => {
+    setVisibleCols((prev) =>
+      prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]
+    );
+  };
+
+  const [visibleCols, setVisibleCols] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (allCols.length && visibleCols.length === 0) {
+      setVisibleCols(allCols);
+    }
+  }, [allCols]);
+
+  
+
+  /** --- table helpers --- */
+const showCellWithOverlay = (val: any) => {
+  if (typeof val !== "string" || val.length < colLengthLimit) return val;
+
+  const id = "tt-" + Math.random().toString(36).slice(2);
+
+  return (
+    <div>
+      <div
+        data-tooltip-id={id}
+        data-tooltip-content={val}
+        className="cursor-default large-table-cell"
+      >
+        {val.slice(0, colLengthLimit)} ...
+      </div>
+
+      <Tooltip
+        id={id}
+        variant="dark"
+        className="whitespace-normal max-w-sm" // Tailwind
+      />
+    </div>
+  );
+};
+
+  const renderCell = (row: T, col: string) => {
+  const val = row[col];
+  if (val == null || val === "") return null;
+
+  if (amounts.filter(i => col.toLocaleLowerCase().includes(i)).length)
+    return (
+      <>
+        {numberToMoney(val)}
+      </>
+    );
+
+  if (dates.filter(i => col.toLocaleLowerCase().includes(i)).length)
+    return beautify_date(val, true);
+
+  if (typeof val === "string") {
+    const normalized = val.toLowerCase().trim();
+    const success   = ['approved', 'accepted', 'مقبول', 'ناجح', 'success', 's', 'a','نجح']
+    const rejected  = ['failed', 'مرفوض', 'rejected', 'r', 'f','fail','فشل','error']
+
+    if (rejected.includes(normalized))
+      return <span className="text-red-600 font-semibold">{val}</span>;
+
+    if (success.includes(normalized))
+      return <span className="text-green-600 font-semibold">{val}</span>;
+
+  }
+
+  return showCellWithOverlay(val);
+};
+
+  /** --- main render --- */
+  return (
+    <div className="space-y-3">
+      {/* column selector */}
+      {(allCols.length > 0 && selectCols) && (
+        <ColumnSelector
+          allColumns={allCols}
+          selected={visibleCols}
+          onToggle={toggleCol}
+        />
+      )}
+
+      <div className="overflow-x-auto overflow-y-hidden rounded-lg border">
+        {isLoading ? (
+          <Loading />
+        ) : data && data.length > 0 ? (
+          <table className="w-full text-center">
+            <thead>
+              <tr className="text-center bg-primary text-white">
+                {startOptions && (
+                  <th className="py-2 px-4">{startOptionsHeader ?? ""}</th>
+                )}
+                {showCounter && <th className="py-2 px-4">#</th>}
+                {visibleCols.map((col) => (
+                  <th
+                    key={col}
+                    className="border border-gray-200 whitespace-nowrap px-4 py-4 font-bold"
+                  >
+                    {col}
+                  </th>
+                ))}
+                {options && (
+                  <th className="py-2 px-4">{optionsHeader ?? ""}</th>
+                )}
+              </tr>
+            </thead>
+
+            <tbody className="divide-y divide-gray-200">
+              {data.map((row, idx) => (
+                <tr key={idx}>
+                  {startOptions && (
+                    <td className="border border-gray-200 px-4 py-2">
+                      {startOptions(row)}
+                    </td>
+                  )}
+                  {showCounter && (
+                    <td className="border border-gray-200 px-4 py-2">{idx + 1}</td>
+                  )}
+
+                  {visibleCols.map((col) => (
+                    <td
+                      key={col}
+                      className="border border-gray-200 whitespace-nowrap px-4 py-2"
+                    >
+                      {renderCell(row, col)}
+                    </td>
+                  ))}
+
+                  {options && (
+                    <td className="border border-gray-200 px-4 py-2">
+                      <div className="flex justify-center">{options(row)}</div>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          emptyText?
+            <EmptyData height='200px' message={emptyText} />
+          :null
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default DataTable
+export default DataTable;

@@ -1,8 +1,8 @@
 import { AlertCircle, Minus, Plus } from 'lucide-react';
-import { useAddToCartMutation } from '../../../../redux/api/ordersApi';
 import EditableField from '../../../ui/Forms/EditableField';
 import { showMessage } from '../../../ui/Common/ShowMessage';
 import useForm from '../../../ui/Hooks/Forms/useForm';
+import { useAddToCartMutation } from '../../../../redux/api/cartApi';
 
 interface sizeType {
   id: string;
@@ -84,7 +84,7 @@ const MealCard = ({ id, name, description, prices }:MealCardType) => {
         )}
 
 
-        {prices.length > 0 && (
+        {prices && prices.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {prices.map((variant) => (
               <button

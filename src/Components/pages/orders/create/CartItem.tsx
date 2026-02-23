@@ -1,8 +1,8 @@
-import { useRemoveFromCartMutation, useUpdateCartItemMutation } from '../../../../redux/api/ordersApi'
+import { useRemoveFromCartMutation, useUpdateCartItemMutation } from '../../../../redux/api/cartApi'
 import { showMessage } from '../../../ui/Common/ShowMessage'
 import EditableField from '../../../ui/Forms/EditableField'
 import { CurrencyIcon } from '../../../utils/Icons'
-import { CartItemType } from './Types'
+import { CartItemType } from '../Types'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 
 

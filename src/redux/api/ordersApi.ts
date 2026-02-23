@@ -5,45 +5,29 @@ const base_url = 'orders/'
 const ordersApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
 
-        getCart: builder.query<any, void>({
+
+        listOrders: builder.query({
             query: () => ({
-                url: `${base_url}cart/`,
+                url: `${base_url}`,
+                method: 'GET',
             }),
             providesTags: ['orders']
         }),
-        
-
-        addToCart: builder.mutation({
-            query: ({form}:{form:FormData}) => ({
-                url     : `${base_url}cart/add/`,
-                method  : 'POST',
-                body    : form
-            }),
-            invalidatesTags: ['orders']
-        }),
-
-        updateCartItem: builder.mutation({
-            query: ({form}:{form:FormData}) => ({
-                url     : `${base_url}cart/update/`,
-                method  : 'PATCH',
-                body    :  form
-            }),
-            invalidatesTags: ['orders']
-        }),
-
-        removeFromCart: builder.mutation({
-            query: ({ order_item_id }) => ({
-                url: `${base_url}cart/remove/${order_item_id}/`,
-                method: 'DELETE',
-            }),
-            invalidatesTags: ['orders']
-        }),
 
         createOrder: builder.mutation({
-            query: ({form}:{form:FormData}) => ({
-                url     : `${base_url}create/`,
-                method  : 'POST',
-                body    : form
+            query: ({ form }: { form: FormData }) => ({
+                url: `${base_url}create/`,
+                method: 'POST',
+                body: form
+            }),
+            invalidatesTags: ['cart']
+        }),
+
+        updateOrderState: builder.mutation({
+            query: ({ order_id, state }: { order_id: string; state: string }) => ({
+                url: `${base_url}${order_id}/state/change/`,
+                method: 'PATCH',
+                body: { state }
             }),
             invalidatesTags: ['orders']
         }),
@@ -53,9 +37,7 @@ const ordersApiSlice = apiSlice.injectEndpoints({
 
 
 export const {
-    useGetCartQuery,
-    useAddToCartMutation,
-    useUpdateCartItemMutation,
-    useRemoveFromCartMutation,
+    useListOrdersQuery,
     useCreateOrderMutation,
+    useUpdateOrderStateMutation,
 } = ordersApiSlice

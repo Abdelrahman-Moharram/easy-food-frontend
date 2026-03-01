@@ -1,5 +1,4 @@
 import { MessageSquare } from 'lucide-react'
-import React from 'react'
 
 const MealCard = ({item}:{item:any}) => {
   return (
@@ -17,7 +16,7 @@ const MealCard = ({item}:{item:any}) => {
             <p className="text-xs text-neutral-400 mt-0.5 leading-snug">{item.meal.description}</p>
             </div>
             <span className="shrink-0 mt-0.5 px-2 py-1 bg-neutral-100 rounded-lg text-[10px] font-black text-neutral-500 uppercase tracking-tighter">
-            {item.size.name}
+                {item.size.name}
             </span>
         </div>
 

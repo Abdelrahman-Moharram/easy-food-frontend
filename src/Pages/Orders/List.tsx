@@ -4,12 +4,13 @@ import OrderBoard from '../../Components/pages/orders/manage/OrderBoard';
 
 const List = () => {
   const { data, isLoading } = useListOrdersQuery(undefined)
+  console.log(data);
   
   return (
     <div className="p-6 md:p-10 min-h-screen bg-neutral-50/50">
       {isLoading
         ? <Loading />
-        : <OrderBoard initialData={data || { Received: [], Preparing: [], Done: [], Closed: [] }} />
+        : <OrderBoard initialData={data || []} />
       }
     </div>
   )

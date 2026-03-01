@@ -3,33 +3,18 @@ import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import OrderColumn from './OrderColumn';
 import { useUpdateOrderStateMutation } from '../../../../redux/api/ordersApi';
 import { toast } from 'react-toastify';
-
-const STATES = ['Received', 'Preparing', 'Done', 'Closed'] as const;
-
-const COLUMN_STYLES: Record<string, { headerColor: string; dotColor: string }> = {
-  Received : { headerColor: 'bg-blue-50 text-blue-700',     dotColor: 'bg-blue-500'    },
-  Preparing: { headerColor: 'bg-amber-50 text-amber-700',   dotColor: 'bg-amber-500'   },
-  Done     : { headerColor: 'bg-emerald-50 text-emerald-700', dotColor: 'bg-emerald-500' },
-  Closed   : { headerColor: 'bg-neutral-100 text-neutral-600', dotColor: 'bg-neutral-400' },
-};
-
-type OrdersMap = Record<string, any[]>;
+import { BoardColumnData } from './types';
 
 interface Props {
-  initialData: OrdersMap;
+  initialData: BoardColumnData[];
 }
 
 const OrderBoard: React.FC<Props> = ({ initialData }) => {
-  const [board, setBoard] = useState<OrdersMap>(() => {
-    const base: OrdersMap = { Received: [], Preparing: [], Done: [], Closed: [] };
-    return { ...base, ...initialData };
-  });
-
+  const [board, setBoard] = useState<BoardColumnData[]>(initialData || []);
   const [updateOrderState] = useUpdateOrderStateMutation();
 
   useEffect(() => {
-    const base: OrdersMap = { Received: [], Preparing: [], Done: [], Closed: [] };
-    setBoard({ ...base, ...initialData });
+    setBoard(initialData || []);
   }, [initialData]);
 
   const onDragEnd = async (result: DropResult) => {
@@ -38,37 +23,43 @@ const OrderBoard: React.FC<Props> = ({ initialData }) => {
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-    const from = source.droppableId;
-    const to   = destination.droppableId;
+    const sourceColIndex = board.findIndex(col => col.state.id === source.droppableId);
+    const destColIndex = board.findIndex(col => col.state.id === destination.droppableId);
 
-    // Clone board
-    const newBoard = { ...board };
-    const sourceList = [...(newBoard[from] || [])];
-    const destList   = from === to ? sourceList : [...(newBoard[to] || [])];
+    if (sourceColIndex === -1 || destColIndex === -1) return;
 
-    const [movedOrder] = sourceList.splice(source.index, 1);
+    const newBoard = [...board];
+    const sourceCol = { ...newBoard[sourceColIndex], orders: [...newBoard[sourceColIndex].orders] };
+    const destCol = sourceColIndex === destColIndex 
+      ? sourceCol 
+      : { ...newBoard[destColIndex], orders: [...newBoard[destColIndex].orders] };
 
-    // Update state label on the moved card
-    const updatedOrder = { ...movedOrder, state: to };
+    const [movedOrder] = sourceCol.orders.splice(source.index, 1);
 
-    destList.splice(destination.index, 0, updatedOrder);
+    const updatedOrder = { 
+      ...movedOrder, 
+      state: destCol.state.id 
+    };
 
-    newBoard[from] = sourceList;
-    if (from !== to) newBoard[to] = destList;
+    destCol.orders.splice(destination.index, 0, updatedOrder);
 
-    setBoard(newBoard); // Optimistic update
+    newBoard[sourceColIndex] = sourceCol;
+    if (sourceColIndex !== destColIndex) {
+      newBoard[destColIndex] = destCol;
+    }
+
+    setBoard(newBoard);
 
     try {
-      await updateOrderState({ order_id: draggableId, state: to }).unwrap();
-      toast.success(`Order #${movedOrder?.code || draggableId.slice(-4)} → ${to}`);
+      await updateOrderState({ order_id: draggableId, state: destCol.state.id }).unwrap();
+      toast.success(`Order #${movedOrder.code || draggableId.slice(-4)} → ${destCol.state.name}`);
     } catch {
       toast.error('Failed to update order. Reverting…');
-      const base: OrdersMap = { Received: [], Preparing: [], Done: [], Closed: [] };
-      setBoard({ ...base, ...initialData });
+      setBoard(initialData || []);
     }
   };
 
-  const totalOrders = STATES.reduce((sum, s) => sum + (board[s]?.length || 0), 0);
+  const totalOrders = board.reduce((sum, col) => sum + (col.orders?.length || 0), 0);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -87,13 +78,11 @@ const OrderBoard: React.FC<Props> = ({ initialData }) => {
 
       {/* Columns */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-        {STATES.map(state => (
+        {board.map((col) => (
           <OrderColumn
-            key={state}
-            state={state}
-            orders={board[state] || []}
-            headerColor={COLUMN_STYLES[state].headerColor}
-            dotColor={COLUMN_STYLES[state].dotColor}
+            key={col.state.id}
+            stateObj={col.state}
+            orders={col.orders}
           />
         ))}
       </div>

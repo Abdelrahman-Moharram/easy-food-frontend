@@ -4,19 +4,14 @@ import { ShoppingBag, CreditCard, Banknote, Copy, Check, Clock } from 'lucide-re
 import classNames from 'classnames';
 import MealCard from './MealCard';
 import { format } from 'date-fns';
-
-const STATE_COLORS: Record<string, string> = {
-  'Received' : 'bg-blue-50 text-blue-700 border-blue-200',
-  'Preparing': 'bg-amber-50 text-amber-700 border-amber-200',
-  'Done'     : 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  'Closed'   : 'bg-neutral-100 text-neutral-500 border-neutral-200',
-};
+import { OrderData, OrderStateDef } from './types';
+import { getVariantClasses } from './utils';
 
 interface OrderCardProps {
-  order: any;
+  order: OrderData;
   index: number;
+  stateObj: OrderStateDef;
 }
-
 
 const CopyableId: React.FC<{ id: string }> = ({ id }) => {
   const [copied, setCopied] = useState(false);
@@ -44,7 +39,9 @@ const CopyableId: React.FC<{ id: string }> = ({ id }) => {
   );
 };
 
-const OrderCard: React.FC<OrderCardProps> = ({ order, index }) => {
+const OrderCard: React.FC<OrderCardProps> = ({ order, index, stateObj }) => {
+  const { badgeColor } = getVariantClasses(stateObj.variant);
+
   return (
     <Draggable draggableId={order?.id?.toString()} index={index}>
       {(provided, snapshot) => (
@@ -80,9 +77,9 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, index }) => {
             </div>
             <span className={classNames(
               'px-3 py-1 rounded-xl text-[11px] font-black uppercase tracking-widest border',
-              STATE_COLORS[order?.state]
+              badgeColor
             )}>
-              {order?.state}
+              {stateObj.name}
             </span>
           </div>
 
